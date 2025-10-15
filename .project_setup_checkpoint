@@ -1,0 +1,30 @@
+{
+  "template_copied": {
+    "completed": true,
+    "data": {},
+    "timestamp": "2025-10-15 17:08:29 +0200"
+  },
+  "app_name_updated": {
+    "completed": true,
+    "data": {},
+    "timestamp": "2025-10-15 17:08:29 +0200"
+  },
+  "deploy_yml_updated": {
+    "completed": true,
+    "data": {},
+    "timestamp": "2025-10-15 17:08:29 +0200"
+  },
+  "dns_created": {
+    "completed": true,
+    "data": {},
+    "timestamp": "2025-10-15 17:08:29 +0200"
+  },
+  "github_repo_created": {
+    "completed": true,
+    "data": {
+      "repo_full_name": "loicboutet/better_call_sales",
+      "repo_url": "https://github.com/loicboutet/better_call_sales"
+    },
+    "timestamp": "2025-10-15 17:08:30 +0200"
+  }
+}
