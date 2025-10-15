@@ -1,0 +1,64 @@
+<% content_for :title, "Critères d'Analyse - Administration" %>
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold" style="color: var(--dark-purple);">Critères d'Analyse</h1>
+    <p class="mt-2 text-gray-600">Configuration des méthodologies Better Call Sales</p>
+  </div>
+
+  <!-- Methodology Tabs -->
+  <div class="mb-6">
+    <div class="border-b border-gray-200">
+      <nav class="-mb-px flex space-x-8">
+        <button class="border-b-2 border-purple-500 py-4 px-1 text-sm font-medium text-purple-600">
+          CRONOS (7 étapes)
+        </button>
+        <button class="border-b-2 border-transparent py-4 px-1 text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300">
+          SYNTHÉON (7-9 étapes)
+        </button>
+        <button class="border-b-2 border-transparent py-4 px-1 text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300">
+          FERMION (5 étapes)
+        </button>
+      </nav>
+    </div>
+  </div>
+
+  <!-- CRONOS Steps -->
+  <div class="space-y-4">
+    <% @criteria_by_methodology[:cronos].each do |criterion| %>
+      <%= link_to admin_critere_path(criterion[:id]), class: "block bg-white rounded-lg shadow border border-gray-100 p-6 hover:border-purple-300 transition-colors" do %>
+        <div class="flex items-center justify-between">
+          <div class="flex items-center flex-1">
+            <div class="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-white font-bold" style="background-color: var(--flash-purple);">
+              <%= criterion[:position] %>
+            </div>
+            <div class="ml-4 flex-1">
+              <h3 class="text-lg font-bold text-gray-900"><%= criterion[:step] %></h3>
+              <p class="text-sm text-gray-600"><%= criterion[:criteria_count] %> critères d'évaluation</p>
+            </div>
+          </div>
+          <div class="flex items-center space-x-4">
+            <span class="px-3 py-1 text-xs font-semibold rounded-full <%= criterion[:is_active] ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' %>">
+              <%= criterion[:is_active] ? 'Actif' : 'Inactif' %>
+            </span>
+            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <!-- Info Box -->
+  <div class="mt-8 bg-blue-50 border-l-4 border-blue-400 p-4">
+    <div class="flex">
+      <svg class="h-5 w-5 text-blue-400 mr-3" fill="currentColor" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+      </svg>
+      <p class="text-sm text-blue-700">
+        La méthodologie Better Call Sales est pré-configurée. Vous pouvez affiner les critères et les prompts d'évaluation.
+      </p>
+    </div>
+  </div>
+</div>

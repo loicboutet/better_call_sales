@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <title><%= content_for(:title) || "WeSales - Administration" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    
+    <style>
+      :root {
+        --dark-purple: #2B0E5D;
+        --flash-purple: #6625CC;
+        --light-orange: #FF9A65;
+        --cream-orange: #FCDFC9;
+        --noir: #110624;
+      }
+    </style>
+  </head>
+
+  <body class="bg-gray-50 min-h-screen">
+    <!-- Top Navigation Bar -->
+    <nav class="bg-white border-b border-gray-200 fixed w-full z-30 top-0">
+      <div class="px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+          <div class="flex">
+            <!-- Logo -->
+            <div class="flex-shrink-0 flex items-center">
+              <%= link_to admin_dashboard_path, class: "flex items-center" do %>
+                <%= image_tag "logo_short.png", class: "h-8 w-auto", alt: "WeSales" %>
+                <span class="ml-3 text-xl font-bold" style="color: var(--dark-purple);">WeSales Admin</span>
+              <% end %>
+            </div>
+            
+            <!-- Desktop Navigation -->
+            <div class="hidden sm:ml-8 sm:flex sm:space-x-6">
+              <%= link_to "Dashboard", admin_dashboard_path, 
+                  class: "inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium #{current_page?(admin_dashboard_path) ? 'border-purple-600 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'}" %>
+              
+              <%= link_to "Utilisateurs", admin_utilisateurs_path, 
+                  class: "inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium #{current_page?(admin_utilisateurs_path) ? 'border-purple-600 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'}" %>
+              
+              <%= link_to "Équipes", admin_equipes_path, 
+                  class: "inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium #{current_page?(admin_equipes_path) ? 'border-purple-600 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'}" %>
+              
+              <%= link_to "Critères", admin_criteres_path, 
+                  class: "inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium #{current_page?(admin_criteres_path) ? 'border-purple-600 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'}" %>
+              
+              <%= link_to "Analyses", admin_analyses_path, 
+                  class: "inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium #{current_page?(admin_analyses_path) ? 'border-purple-600 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'}" %>
+              
+              <%= link_to "Paramètres", admin_parametres_path, 
+                  class: "inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium #{current_page?(admin_parametres_path) ? 'border-purple-600 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'}" %>
+            </div>
+          </div>
+          
+          <!-- Right side items -->
+          <div class="flex items-center">
+            <!-- User menu - no profile link for admin, just indicator -->
+            <div class="h-8 w-8 rounded-full flex items-center justify-center text-white" style="background-color: var(--dark-purple);">
+              <span class="text-sm font-bold">AD</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="pt-16">
+      <% if flash[:notice] %>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
+          <div class="bg-green-50 border-l-4 border-green-400 p-4">
+            <div class="flex">
+              <div class="flex-shrink-0">
+                <svg class="h-5 w-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+              </div>
+              <div class="ml-3">
+                <p class="text-sm text-green-700"><%= flash[:notice] %></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      
+      <% if flash[:alert] %>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
+          <div class="bg-red-50 border-l-4 border-red-400 p-4">
+            <div class="flex">
+              <div class="flex-shrink-0">
+                <svg class="h-5 w-5 text-red-400" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                </svg>
+              </div>
+              <div class="ml-3">
+                <p class="text-sm text-red-700"><%= flash[:alert] %></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      
+      <%= yield %>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 mt-12">
+      <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+        <p class="text-center text-sm text-gray-500">
+          © 2025 WeSales. Tous droits réservés.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

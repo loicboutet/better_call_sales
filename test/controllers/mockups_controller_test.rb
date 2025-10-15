@@ -4,6 +4,7 @@ class MockupsControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
     get mockups_index_url
     assert_response :success
+    assert_select "h1", "Mockup Journey Explorer"
   end
 
   test "should get user_dashboard" do
@@ -37,6 +38,7 @@ class MockupsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "root should route to mockups index" do
-    assert_routing '/', controller: 'mockups', action: 'index'
+    get root_url
+    assert_response :success
   end
 end

@@ -1,0 +1,59 @@
+<% content_for :title, "Performance - Analytics Administration" %>
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold" style="color: var(--dark-purple);">Performance Système</h1>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+    <div class="bg-white rounded-lg shadow p-6">
+      <h3 class="text-lg font-bold mb-4" style="color: var(--dark-purple);">Temps de Traitement</h3>
+      <dl class="space-y-3">
+        <div class="flex justify-between">
+          <dt class="text-sm text-gray-600">Transcription moyenne</dt>
+          <dd class="text-sm font-bold" style="color: var(--flash-purple);"><%= @performance_metrics[:avg_transcription_time] %> min</dd>
+        </div>
+        <div class="flex justify-between">
+          <dt class="text-sm text-gray-600">Analyse moyenne</dt>
+          <dd class="text-sm font-bold" style="color: var(--light-orange);"><%= @performance_metrics[:avg_analysis_time] %> min</dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="bg-white rounded-lg shadow p-6">
+      <h3 class="text-lg font-bold mb-4" style="color: var(--dark-purple);">Fiabilité</h3>
+      <dl class="space-y-3">
+        <div class="flex justify-between">
+          <dt class="text-sm text-gray-600">Disponibilité API</dt>
+          <dd class="text-sm font-bold text-green-600"><%= @performance_metrics[:api_uptime] %>%</dd>
+        </div>
+        <div class="flex justify-between">
+          <dt class="text-sm text-gray-600">Taux d'erreur</dt>
+          <dd class="text-sm font-bold text-red-600"><%= @performance_metrics[:error_rate] %>%</dd>
+        </div>
+      </dl>
+    </div>
+  </div>
+
+  <div class="bg-white rounded-lg shadow border border-gray-100 p-6">
+    <h2 class="text-xl font-bold mb-4" style="color: var(--dark-purple);">Statistiques API</h2>
+    <div class="grid grid-cols-4 gap-6">
+      <div class="text-center">
+        <p class="text-3xl font-bold" style="color: var(--flash-purple);"><%= @api_stats[:total_api_calls] %></p>
+        <p class="text-sm text-gray-600 mt-1">Total appels</p>
+      </div>
+      <div class="text-center">
+        <p class="text-3xl font-bold text-green-600"><%= @api_stats[:successful_calls] %></p>
+        <p class="text-sm text-gray-600 mt-1">Succès</p>
+      </div>
+      <div class="text-center">
+        <p class="text-3xl font-bold text-red-600"><%= @api_stats[:failed_calls] %></p>
+        <p class="text-sm text-gray-600 mt-1">Échecs</p>
+      </div>
+      <div class="text-center">
+        <p class="text-3xl font-bold" style="color: var(--light-orange);"><%= @api_stats[:avg_response_time] %>s</p>
+        <p class="text-sm text-gray-600 mt-1">Temps réponse</p>
+      </div>
+    </div>
+  </div>
+</div>

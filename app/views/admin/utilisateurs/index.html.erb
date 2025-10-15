@@ -1,0 +1,106 @@
+<% content_for :title, "Utilisateurs - Administration WeSales" %>
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div class="mb-8 flex items-center justify-between">
+    <div>
+      <h1 class="text-3xl font-bold" style="color: var(--dark-purple);">Utilisateurs</h1>
+      <p class="mt-2 text-gray-600">Gérez tous les utilisateurs de la plateforme</p>
+    </div>
+    <%= link_to new_admin_utilisateur_path, class: "px-4 py-2 border border-transparent rounded-md text-sm font-medium text-white hover:opacity-90", style: "background-color: var(--flash-purple);" do %>
+      <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+      </svg>
+      Nouvel utilisateur
+    <% end %>
+  </div>
+
+  <!-- Filters -->
+  <div class="bg-white rounded-lg shadow border border-gray-100 p-6 mb-6">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Rôle</label>
+        <select class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500">
+          <option value="">Tous</option>
+          <option value="admin">Administrateur</option>
+          <option value="manager">Manager</option>
+          <option value="sales_rep">Commercial</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Équipe</label>
+        <select class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500">
+          <option value="">Toutes</option>
+          <option value="1">Équipe Paris</option>
+          <option value="2">Équipe Lyon</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Statut</label>
+        <select class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500">
+          <option value="">Tous</option>
+          <option value="active">Actif</option>
+          <option value="inactive">Inactif</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Recherche</label>
+        <input type="text" placeholder="Nom, email..." class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500">
+      </div>
+    </div>
+  </div>
+
+  <!-- Users Table -->
+  <div class="bg-white rounded-lg shadow border border-gray-100">
+    <table class="min-w-full divide-y divide-gray-200">
+      <thead class="bg-gray-50">
+        <tr>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Utilisateur</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Rôle</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Équipe</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Statut</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Dernière connexion</th>
+          <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-200">
+        <% @users.each do |user| %>
+          <tr class="hover:bg-gray-50">
+            <td class="px-6 py-4">
+              <%= link_to admin_utilisateur_path(user[:id]), class: "flex items-center" do %>
+                <div class="h-10 w-10 rounded-full flex items-center justify-center text-white font-medium mr-3" 
+                     style="background-color: <%= user[:role] == 'admin' ? 'var(--dark-purple)' : user[:role] == 'manager' ? 'var(--light-orange)' : 'var(--flash-purple)' %>;">
+                  <%= user[:name].split.map(&:first).join %>
+                </div>
+                <div>
+                  <p class="font-medium text-gray-900"><%= user[:name] %></p>
+                  <p class="text-sm text-gray-500"><%= user[:email] %></p>
+                </div>
+              <% end %>
+            </td>
+            <td class="px-6 py-4">
+              <span class="px-2 py-1 text-xs font-semibold rounded-full <%= user[:role] == 'admin' ? 'bg-purple-100 text-purple-800' : user[:role] == 'manager' ? 'bg-orange-100 text-orange-800' : 'bg-blue-100 text-blue-800' %>">
+                <%= user[:role] == 'admin' ? 'Admin' : user[:role] == 'manager' ? 'Manager' : 'Commercial' %>
+              </span>
+            </td>
+            <td class="px-6 py-4 text-sm text-gray-900"><%= user[:team] || "—" %></td>
+            <td class="px-6 py-4">
+              <span class="px-2 py-1 text-xs font-semibold rounded-full <%= user[:status] == 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' %>">
+                <%= user[:status] == 'active' ? 'Actif' : 'Inactif' %>
+              </span>
+            </td>
+            <td class="px-6 py-4 text-sm text-gray-500"><%= time_ago_in_words(user[:last_sign_in]) %></td>
+            <td class="px-6 py-4 text-right">
+              <div class="flex items-center justify-end space-x-2">
+                <%= link_to edit_admin_utilisateur_path(user[:id]), class: "text-purple-600 hover:text-purple-900" do %>
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                  </svg>
+                <% end %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

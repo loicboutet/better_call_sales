@@ -1,0 +1,42 @@
+<% content_for :title, "Utilisation - Analytics Administration" %>
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold" style="color: var(--dark-purple);">Statistiques d'Utilisation</h1>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+    <div class="bg-white rounded-lg shadow p-6">
+      <p class="text-sm text-gray-600">Total uploads</p>
+      <p class="text-3xl font-bold mt-2" style="color: var(--flash-purple);"><%= @usage_stats[:total_uploads] %></p>
+    </div>
+    <div class="bg-white rounded-lg shadow p-6">
+      <p class="text-sm text-gray-600">Analyses réussies</p>
+      <p class="text-3xl font-bold mt-2 text-green-600"><%= @usage_stats[:successful_analyses] %></p>
+    </div>
+    <div class="bg-white rounded-lg shadow p-6">
+      <p class="text-sm text-gray-600">Stockage utilisé</p>
+      <p class="text-3xl font-bold mt-2" style="color: var(--light-orange);"><%= @usage_stats[:total_storage_gb] %> GB</p>
+    </div>
+  </div>
+
+  <div class="bg-white rounded-lg shadow border border-gray-100 p-6">
+    <h2 class="text-xl font-bold mb-4" style="color: var(--dark-purple);">Utilisation par Équipe</h2>
+    <div class="space-y-4">
+      <% @by_team.each do |team| %>
+        <div class="border border-gray-200 rounded-lg p-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="font-bold text-gray-900"><%= team[:team] %></h3>
+              <p class="text-sm text-gray-600"><%= team[:members] %> membres</p>
+            </div>
+            <div class="text-right">
+              <p class="text-2xl font-bold" style="color: var(--flash-purple);"><%= team[:calls] %></p>
+              <p class="text-sm text-gray-600">appels</p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

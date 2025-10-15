@@ -1,0 +1,67 @@
+<% content_for :title, "Analyses de l'Équipe - WeSales" %>
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div class="mb-8 flex items-center justify-between">
+    <div>
+      <h1 class="text-3xl font-bold" style="color: var(--dark-purple);">Analyses de l'Équipe</h1>
+      <p class="mt-2 text-gray-600">Vue d'ensemble des performances collectives</p>
+    </div>
+    <div class="flex space-x-3">
+      <%= link_to "Comparaison", manager_analyses_comparaison_path, class: "px-4 py-2 border border-gray-300 rounded-md text-sm font-medium hover:bg-gray-50" %>
+      <%= link_to "Par Critères", manager_analyses_criteres_path, class: "px-4 py-2 border border-gray-300 rounded-md text-sm font-medium hover:bg-gray-50" %>
+    </div>
+  </div>
+
+  <!-- Overall Performance -->
+  <div class="bg-gradient-to-r from-purple-50 to-orange-50 rounded-lg border-2 border-orange-200 p-8 mb-8">
+    <div class="grid grid-cols-4 gap-6 text-center">
+      <div>
+        <p class="text-4xl font-bold" style="color: var(--light-orange);"><%= @team_performance[:overall_score] %>%</p>
+        <p class="text-sm text-gray-600 mt-1">Score global</p>
+      </div>
+      <div>
+        <p class="text-4xl font-bold" style="color: var(--dark-purple);"><%= @team_performance[:total_calls] %></p>
+        <p class="text-sm text-gray-600 mt-1">Total appels</p>
+      </div>
+      <div>
+        <p class="text-4xl font-bold" style="color: var(--flash-purple);"><%= @team_performance[:analyzed_calls] %></p>
+        <p class="text-sm text-gray-600 mt-1">Analysés</p>
+      </div>
+      <div>
+        <p class="text-4xl font-bold text-green-600">+<%= @team_performance[:improvement_rate] %>%</p>
+        <p class="text-sm text-gray-600 mt-1">Progression</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Methodology Breakdown -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+    <% @methodology_breakdown.each do |methodology, data| %>
+      <div class="bg-white rounded-lg shadow border border-gray-100 p-6">
+        <h3 class="text-lg font-bold mb-3" style="color: var(--dark-purple);"><%= methodology.to_s.upcase %></h3>
+        <div class="text-center mb-4">
+          <p class="text-3xl font-bold" style="color: var(--light-orange);"><%= data[:avg_score] %>%</p>
+          <p class="text-sm text-gray-600"><%= data[:calls] %> appels</p>
+        </div>
+        <div class="w-full bg-gray-200 rounded-full h-3 mb-3">
+          <div class="h-3 rounded-full" style="width: <%= data[:avg_score] %>%; background-color: var(--light-orange);"></div>
+        </div>
+        <p class="text-xs text-center text-green-600"><%= data[:improvement] %> vs mois dernier</p>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Trends Chart -->
+  <div class="bg-white rounded-lg shadow border border-gray-100 p-6">
+    <h2 class="text-xl font-bold mb-4" style="color: var(--dark-purple);">Évolution de l'Équipe</h2>
+    <div class="h-64 flex items-end justify-between space-x-2">
+      <% @trends.each do |point| %>
+        <div class="flex-1 flex flex-col items-center">
+          <div class="w-full rounded-t-lg" style="height: <%= (point[:score] / 100.0 * 100) %>%; background-color: var(--light-orange);"></div>
+          <div class="mt-2 text-xs text-gray-600"><%= l(point[:date], format: :short) %></div>
+          <div class="text-xs font-medium" style="color: var(--light-orange);"><%= point[:score] %>%</div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

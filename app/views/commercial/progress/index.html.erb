@@ -1,0 +1,160 @@
+<% content_for :title, "Ma Progression - WeSales" %>
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold" style="color: var(--dark-purple);">Ma Progression</h1>
+    <p class="mt-2 text-gray-600">Suivez votre évolution et identifiez vos axes d'amélioration</p>
+  </div>
+
+  <!-- Overall Evolution Chart -->
+  <div class="bg-white rounded-lg shadow border border-gray-100 p-6 mb-8">
+    <h2 class="text-xl font-bold mb-4" style="color: var(--dark-purple);">Évolution Globale</h2>
+    <div class="h-64 flex items-end justify-between space-x-2">
+      <% @progress_data[:overall_evolution].each do |data_point| %>
+        <div class="flex-1 flex flex-col items-center">
+          <div class="w-full rounded-t-lg transition-all hover:opacity-80" 
+               style="height: <%= (data_point[:score] / 100.0 * 100) %>%; background-color: var(--flash-purple);"></div>
+          <div class="mt-2 text-xs text-gray-600 text-center">
+            <%= l(data_point[:date], format: :short) %>
+          </div>
+          <div class="text-xs font-medium" style="color: var(--flash-purple);"><%= data_point[:score].round(1) %>%</div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- By Call Type -->
+  <div class="bg-white rounded-lg shadow border border-gray-100 p-6 mb-8">
+    <h2 class="text-xl font-bold mb-4" style="color: var(--dark-purple);">Performance par Type d'Appel</h2>
+    <div class="space-y-6">
+      <% @progress_data[:by_call_type].each do |type, data| %>
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <div>
+              <span class="text-sm font-medium text-gray-900">
+                <%= case type
+                    when :cold_call then "Appel à froid (CRONOS)"
+                    when :discovery_call then "Découverte (SYNTHÉON)"
+                    when :negotiation_call then "Négociation (FERMION)"
+                    when :closing_call then "Closing (FERMION)"
+                    when :rfp_call then "Soutenance AO (SYNTHÉON)"
+                    end %>
+              </span>
+              <span class="ml-2 text-xs text-gray-500">(<%= data[:calls_count] %> appels)</span>
+            </div>
+            <div class="flex items-center space-x-3">
+              <span class="text-xs text-gray-500"><%= data[:previous].round(1) %>% → <%= data[:current].round(1) %>%</span>
+              <% if data[:trend] == "up" %>
+                <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M5.293 9.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.707a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                </svg>
+              <% elsif data[:trend] == "down" %>
+                <svg class="w-5 h-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M14.707 10.293a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L9 12.586V5a1 1 0 012 0v7.586l2.293-2.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+              <% end %>
+            </div>
+          </div>
+          <div class="w-full bg-gray-200 rounded-full h-3">
+            <div class="h-3 rounded-full" style="width: <%= [data[:current], 100].min %>%; background-color: var(--light-orange);"></div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Methodology Trends -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+    <% @methodology_trends.each do |trend| %>
+      <div class="bg-white rounded-lg shadow border border-gray-100 p-6">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-lg font-bold" style="color: var(--dark-purple);"><%= trend[:methodology] %></h3>
+          <span class="text-2xl font-bold" style="color: var(--flash-purple);"><%= trend[:percentage].round(1) %>%</span>
+        </div>
+        <p class="text-sm text-gray-600 mb-2"><%= trend[:call_types].join(", ") %></p>
+        <p class="text-xs text-green-600 mb-4"><%= trend[:evolution] %></p>
+        
+        <div class="space-y-2">
+          <div>
+            <p class="text-xs font-medium text-gray-700 mb-1">Points forts :</p>
+            <% trend[:strongest_steps].each do |step| %>
+              <span class="inline-block px-2 py-1 text-xs rounded-full bg-green-100 text-green-800 mr-1 mb-1"><%= step %></span>
+            <% end %>
+          </div>
+          <div>
+            <p class="text-xs font-medium text-gray-700 mb-1">À travailler :</p>
+            <% trend[:weakest_steps].each do |step| %>
+              <span class="inline-block px-2 py-1 text-xs rounded-full bg-orange-100 text-orange-800 mr-1 mb-1"><%= step %></span>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Step Performance Analysis -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <!-- Consistently Strong -->
+    <div class="bg-green-50 rounded-lg border border-green-200 p-6">
+      <h3 class="text-lg font-bold text-green-900 mb-4 flex items-center">
+        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+        </svg>
+        Points Forts Réguliers
+      </h3>
+      <div class="space-y-3">
+        <% @step_performance[:consistently_strong].each do |step| %>
+          <div class="bg-white rounded p-3">
+            <p class="text-sm font-medium text-gray-900"><%= step[:step] %></p>
+            <div class="flex items-center justify-between mt-1">
+              <span class="text-xs text-gray-600">Moyenne : <%= step[:avg_score] %>/15</span>
+              <span class="text-xs text-green-600"><%= step[:trend] == "up" ? "↗" : "→" %></span>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <!-- Needs Focus -->
+    <div class="bg-orange-50 rounded-lg border border-orange-200 p-6">
+      <h3 class="text-lg font-bold text-orange-900 mb-4 flex items-center">
+        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+        </svg>
+        À Travailler
+      </h3>
+      <div class="space-y-3">
+        <% @step_performance[:needs_focus].each do |step| %>
+          <div class="bg-white rounded p-3">
+            <p class="text-sm font-medium text-gray-900"><%= step[:step] %></p>
+            <div class="flex items-center justify-between mt-1">
+              <span class="text-xs text-gray-600">Moyenne : <%= step[:avg_score] %>/15</span>
+              <span class="text-xs text-orange-600"><%= step[:trend] == "down" ? "↘" : "→" %></span>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <!-- Most Improved -->
+    <div class="bg-blue-50 rounded-lg border border-blue-200 p-6">
+      <h3 class="text-lg font-bold text-blue-900 mb-4 flex items-center">
+        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M12 7a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0V8.414l-4.293 4.293a1 1 0 01-1.414 0L8 10.414l-4.293 4.293a1 1 0 01-1.414-1.414l5-5a1 1 0 011.414 0L11 10.586 14.586 7H12z" clip-rule="evenodd"/>
+        </svg>
+        Progression
+      </h3>
+      <div class="space-y-3">
+        <% @step_performance[:most_improved].each do |step| %>
+          <div class="bg-white rounded p-3">
+            <p class="text-sm font-medium text-gray-900"><%= step[:step] %></p>
+            <div class="flex items-center justify-between mt-1">
+              <span class="text-xs text-gray-600"><%= step[:from] %> → <%= step[:to] %></span>
+              <span class="text-xs font-medium text-blue-600"><%= step[:improvement] %></span>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

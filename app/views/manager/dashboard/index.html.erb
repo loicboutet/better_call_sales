@@ -1,0 +1,208 @@
+<% content_for :title, "Tableau de bord Manager - WeSales" %>
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold" style="color: var(--dark-purple);">Tableau de bord - Équipe Paris</h1>
+    <p class="mt-2 text-gray-600">Vue d'ensemble des performances de votre équipe</p>
+  </div>
+
+  <!-- Stats Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <div class="bg-white rounded-lg shadow p-6 border border-gray-100">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm font-medium text-gray-600">Membres Actifs</p>
+          <p class="mt-2 text-3xl font-bold" style="color: var(--dark-purple);"><%= @team_stats[:total_members] %></p>
+        </div>
+        <div class="p-3 rounded-lg" style="background-color: var(--cream-orange);">
+          <svg class="w-8 h-8" style="color: var(--light-orange);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-lg shadow p-6 border border-gray-100">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm font-medium text-gray-600">Total Appels</p>
+          <p class="mt-2 text-3xl font-bold" style="color: var(--flash-purple);"><%= @team_stats[:total_calls] %></p>
+        </div>
+        <div class="p-3 rounded-lg" style="background-color: var(--cream-orange);">
+          <svg class="w-8 h-8" style="color: var(--flash-purple);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-lg shadow p-6 border border-gray-100">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm font-medium text-gray-600">Score Moyen Équipe</p>
+          <p class="mt-2 text-3xl font-bold" style="color: var(--light-orange);"><%= @team_stats[:avg_team_score] %>%</p>
+        </div>
+        <div class="p-3 rounded-lg" style="background-color: var(--cream-orange);">
+          <svg class="w-8 h-8" style="color: var(--dark-purple);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-lg shadow p-6 border border-gray-100">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm font-medium text-gray-600">Amélioration</p>
+          <p class="mt-2 text-3xl font-bold text-green-600">+<%= @team_stats[:improvement_rate] %>%</p>
+        </div>
+        <div class="p-3 rounded-lg" style="background-color: var(--cream-orange);">
+          <svg class="w-8 h-8" style="color: var(--light-orange);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+    <!-- Team Members Performance -->
+    <div class="lg:col-span-2">
+      <div class="bg-white rounded-lg shadow border border-gray-100">
+        <div class="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
+          <h2 class="text-xl font-bold" style="color: var(--dark-purple);">Performance des Membres</h2>
+          <%= link_to "Voir tous", manager_equipe_membres_path, class: "text-sm font-medium hover:underline", style: "color: var(--light-orange);" %>
+        </div>
+        <div class="p-6">
+          <div class="space-y-3">
+            <% @team_members_performance.take(5).each do |member| %>
+              <%= link_to manager_equipe_membre_path(member[:id]), class: "block border border-gray-200 rounded-lg p-4 hover:border-orange-300 transition-colors" do %>
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center flex-1">
+                    <div class="h-10 w-10 rounded-full flex items-center justify-center text-white font-medium" style="background-color: var(--flash-purple);">
+                      <%= member[:name].split.map(&:first).join %>
+                    </div>
+                    <div class="ml-4 flex-1">
+                      <p class="font-medium text-gray-900"><%= member[:name] %></p>
+                      <p class="text-sm text-gray-600"><%= member[:calls] %> appels • <%= member[:best_methodology] %></p>
+                    </div>
+                  </div>
+                  <div class="flex items-center space-x-4">
+                    <div class="text-right">
+                      <p class="text-2xl font-bold" style="color: <%= member[:avg_score] >= 80 ? 'var(--light-orange)' : 'var(--flash-purple)' %>;"><%= member[:avg_score] %>%</p>
+                      <% if member[:trend] == "up" %>
+                        <span class="text-xs text-green-600">↗ En hausse</span>
+                      <% elsif member[:trend] == "down" %>
+                        <span class="text-xs text-red-600">↘ En baisse</span>
+                      <% else %>
+                        <span class="text-xs text-gray-500">→ Stable</span>
+                      <% end %>
+                    </div>
+                    <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+                  </div>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Team Methodology Performance -->
+    <div class="lg:col-span-1">
+      <div class="bg-white rounded-lg shadow border border-gray-100 mb-6">
+        <div class="px-6 py-4 border-b border-gray-200">
+          <h2 class="text-xl font-bold" style="color: var(--dark-purple);">Méthodologies</h2>
+        </div>
+        <div class="p-6">
+          <div class="space-y-4">
+            <% @team_methodology_performance.each do |methodology, data| %>
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-sm font-medium text-gray-700"><%= methodology.to_s.upcase %></span>
+                  <span class="text-sm font-bold" style="color: var(--light-orange);"><%= data[:score] %>%</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2">
+                  <div class="h-2 rounded-full" style="width: <%= [data[:score], 100].min %>%; background-color: var(--light-orange);"></div>
+                </div>
+                <div class="mt-1 flex items-center justify-between text-xs text-gray-500">
+                  <span><%= data[:calls] %> appels</span>
+                  <span><%= data[:trend] == "up" ? "↗" : "→" %></span>
+                </div>
+                <div class="mt-2 text-xs">
+                  <p class="text-green-700">✓ <%= data[:top_step] %></p>
+                  <p class="text-orange-700">⚠ <%= data[:weak_step] %></p>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-gradient-to-br from-orange-50 to-orange-100 rounded-lg border-2 border-orange-200 p-6">
+        <h3 class="text-lg font-bold mb-2" style="color: var(--dark-purple);">Top Performers</h3>
+        <div class="space-y-2">
+          <% @top_performers.each_with_index do |performer, index| %>
+            <div class="flex items-center">
+              <span class="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white" style="background-color: var(--light-orange);">
+                <%= index + 1 %>
+              </span>
+              <span class="ml-2 text-sm font-medium text-gray-900"><%= performer[:name] %></span>
+              <span class="ml-auto text-sm font-bold" style="color: var(--light-orange);"><%= performer[:score] %>%</span>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Team Calls & Needs Attention -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <div class="bg-white rounded-lg shadow border border-gray-100 p-6">
+      <h2 class="text-xl font-bold mb-4" style="color: var(--dark-purple);">Appels Récents de l'Équipe</h2>
+      <div class="space-y-3">
+        <% @recent_team_calls.each do |call| %>
+          <%= link_to manager_appel_path(call[:id]), class: "block border border-gray-200 rounded p-3 hover:border-orange-300 transition-colors" do %>
+            <div class="flex items-start justify-between">
+              <div class="flex-1">
+                <p class="font-medium text-gray-900"><%= call[:title] %></p>
+                <p class="text-sm text-gray-600"><%= call[:member] %></p>
+                <div class="mt-1 flex items-center space-x-2">
+                  <span class="px-2 py-0.5 text-xs rounded-full" style="background-color: var(--cream-orange); color: var(--dark-purple);"><%= call[:methodology] %></span>
+                  <span class="text-xs text-gray-500"><%= l(call[:date], format: :short) %></span>
+                </div>
+              </div>
+              <% if call[:status] == "analyzed" %>
+                <div class="text-right ml-4">
+                  <p class="text-lg font-bold" style="color: <%= call[:score] >= 80 ? 'var(--light-orange)' : 'var(--flash-purple)' %>;"><%= call[:score] %>%</p>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="bg-orange-50 rounded-lg border border-orange-200 p-6">
+      <h2 class="text-xl font-bold mb-4 text-orange-900">Membres Nécessitant Attention</h2>
+      <div class="space-y-3">
+        <% @needs_attention.each do |member| %>
+          <%= link_to manager_equipe_membre_path(member[:name].parameterize), class: "block bg-white rounded p-3 hover:shadow transition-shadow" do %>
+            <div class="flex items-start justify-between">
+              <div class="flex-1">
+                <p class="font-medium text-gray-900"><%= member[:name] %></p>
+                <p class="text-sm text-orange-700"><%= member[:issue] %></p>
+                <p class="text-xs text-gray-500 mt-1"><%= member[:calls] %> appels • Score: <%= member[:score] %>%</p>
+              </div>
+              <svg class="w-5 h-5 text-orange-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

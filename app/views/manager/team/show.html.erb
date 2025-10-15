@@ -1,0 +1,245 @@
+<% content_for :title, "Mon Équipe - WeSales" %>
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold" style="color: var(--dark-purple);"><%= @team[:name] %></h1>
+    <p class="mt-2 text-gray-600"><%= @team[:description] %></p>
+  </div>
+
+  <!-- Stats Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+    <div class="bg-white rounded-lg shadow p-6 border border-gray-100">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm font-medium text-gray-600">Membres Actifs</p>
+          <p class="mt-2 text-3xl font-bold" style="color: var(--dark-purple);"><%= @team_stats[:active_members] %></p>
+        </div>
+        <div class="p-3 rounded-lg" style="background-color: var(--cream-orange);">
+          <svg class="w-8 h-8" style="color: var(--light-orange);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-lg shadow p-6 border border-gray-100">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm font-medium text-gray-600">Total Appels</p>
+          <p class="mt-2 text-3xl font-bold" style="color: var(--flash-purple);"><%= @team_stats[:total_calls] %></p>
+        </div>
+        <div class="p-3 rounded-lg" style="background-color: var(--cream-orange);">
+          <svg class="w-8 h-8" style="color: var(--flash-purple);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-lg shadow p-6 border border-gray-100">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm font-medium text-gray-600">Score Moyen</p>
+          <p class="mt-2 text-3xl font-bold" style="color: var(--light-orange);"><%= @team_stats[:avg_score] %>%</p>
+        </div>
+        <div class="p-3 rounded-lg" style="background-color: var(--cream-orange);">
+          <svg class="w-8 h-8" style="color: var(--dark-purple);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-lg shadow p-6 border border-gray-100">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm font-medium text-gray-600">Amélioration</p>
+          <p class="mt-2 text-3xl font-bold text-green-600">+<%= @team_stats[:improvement_rate] %>%</p>
+        </div>
+        <div class="p-3 rounded-lg" style="background-color: var(--cream-orange);">
+          <svg class="w-8 h-8" style="color: var(--light-orange);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Team Info & Quick Actions -->
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+    <div class="lg:col-span-2">
+      <div class="bg-white rounded-lg shadow border border-gray-100 p-6 mb-6">
+        <h2 class="text-xl font-bold mb-4" style="color: var(--dark-purple);">Informations de l'Équipe</h2>
+        <dl class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <dt class="text-sm font-medium text-gray-500">Manager</dt>
+            <dd class="mt-1 flex items-center">
+              <div class="h-8 w-8 rounded-full flex items-center justify-center text-white text-xs font-bold mr-2" style="background-color: var(--light-orange);">
+                <%= @team[:manager_name].split.map(&:first).join %>
+              </div>
+              <span class="text-sm text-gray-900 font-medium"><%= @team[:manager_name] %></span>
+            </dd>
+          </div>
+          <div>
+            <dt class="text-sm font-medium text-gray-500">Nombre de membres</dt>
+            <dd class="mt-1 text-2xl font-bold" style="color: var(--flash-purple);"><%= @team[:member_count] %></dd>
+          </div>
+          <div>
+            <dt class="text-sm font-medium text-gray-500">Créée le</dt>
+            <dd class="mt-1 text-sm text-gray-900"><%= l(@team[:created_at], format: :long) %></dd>
+          </div>
+          <div>
+            <dt class="text-sm font-medium text-gray-500">Statut</dt>
+            <dd class="mt-1">
+              <span class="px-3 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">Active</span>
+            </dd>
+          </div>
+        </dl>
+      </div>
+
+      <!-- Recent Team Activity -->
+      <div class="bg-white rounded-lg shadow border border-gray-100 p-6">
+        <h2 class="text-xl font-bold mb-4" style="color: var(--dark-purple);">Activité Récente</h2>
+        <div class="space-y-3">
+          <div class="flex items-center p-3 bg-green-50 rounded-lg">
+            <svg class="w-5 h-5 text-green-600 mr-3" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+            </svg>
+            <div class="flex-1">
+              <p class="text-sm font-medium text-gray-900">Sophie Martin a obtenu 88% sur son dernier appel découverte</p>
+              <p class="text-xs text-gray-500">Il y a 2 heures</p>
+            </div>
+          </div>
+          <div class="flex items-center p-3 bg-blue-50 rounded-lg">
+            <svg class="w-5 h-5 text-blue-600 mr-3" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z"/>
+              <path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z"/>
+            </svg>
+            <div class="flex-1">
+              <p class="text-sm font-medium text-gray-900">3 nouveaux appels à analyser</p>
+              <p class="text-xs text-gray-500">Aujourd'hui</p>
+            </div>
+          </div>
+          <div class="flex items-center p-3 bg-orange-50 rounded-lg">
+            <svg class="w-5 h-5 text-orange-600 mr-3" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+            </svg>
+            <div class="flex-1">
+              <p class="text-sm font-medium text-gray-900">Lucas Petit a besoin d'accompagnement sur FERMION</p>
+              <p class="text-xs text-gray-500">Hier</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lg:col-span-1">
+      <div class="bg-white rounded-lg shadow border border-gray-100 p-6 mb-6">
+        <h2 class="text-xl font-bold mb-4" style="color: var(--dark-purple);">Actions Rapides</h2>
+        <div class="space-y-3">
+          <%= link_to manager_equipe_membres_path, class: "flex items-center p-3 border border-gray-200 rounded-lg hover:border-orange-300 transition-colors" do %>
+            <svg class="w-8 h-8 mr-3" style="color: var(--light-orange);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
+            </svg>
+            <div>
+              <p class="font-medium text-gray-900">Voir tous les membres</p>
+              <p class="text-xs text-gray-500"><%= @team[:member_count] %> membres</p>
+            </div>
+          <% end %>
+          
+          <%= link_to manager_appels_path, class: "flex items-center p-3 border border-gray-200 rounded-lg hover:border-orange-300 transition-colors" do %>
+            <svg class="w-8 h-8 mr-3" style="color: var(--flash-purple);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+            </svg>
+            <div>
+              <p class="font-medium text-gray-900">Tous les appels</p>
+              <p class="text-xs text-gray-500"><%= @team_stats[:total_calls] %> appels</p>
+            </div>
+          <% end %>
+          
+          <%= link_to manager_analyses_path, class: "flex items-center p-3 border border-gray-200 rounded-lg hover:border-orange-300 transition-colors" do %>
+            <svg class="w-8 h-8 mr-3" style="color: var(--dark-purple);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+            </svg>
+            <div>
+              <p class="font-medium text-gray-900">Analyses détaillées</p>
+              <p class="text-xs text-gray-500">Performance équipe</p>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <!-- Manager Info -->
+      <div class="bg-gradient-to-br from-orange-50 to-orange-100 rounded-lg border-2 border-orange-200 p-6">
+        <h3 class="text-sm font-medium text-gray-600 mb-3">Votre Rôle</h3>
+        <div class="flex items-center">
+          <div class="h-12 w-12 rounded-full flex items-center justify-center text-white text-lg font-bold" style="background-color: var(--light-orange);">
+            <%= @team[:manager_name].split.map(&:first).join %>
+          </div>
+          <div class="ml-3">
+            <p class="font-bold text-gray-900"><%= @team[:manager_name] %></p>
+            <p class="text-sm text-gray-600">Manager d'équipe</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Team Members Preview -->
+  <div class="bg-white rounded-lg shadow border border-gray-100 mb-8">
+    <div class="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
+      <h2 class="text-xl font-bold" style="color: var(--dark-purple);">Aperçu de l'Équipe</h2>
+      <%= link_to "Voir tous les membres", manager_equipe_membres_path, class: "text-sm font-medium hover:underline", style: "color: var(--light-orange);" %>
+    </div>
+    <div class="p-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <% 4.times do |i| %>
+          <% member = {name: ["Sophie Martin", "Thomas Dubois", "Julie Moreau", "Marie Leroy"][i], score: [81.2, 79.8, 82.4, 77.3][i]} %>
+          <%= link_to manager_equipe_membre_path(i+1), class: "block p-4 border border-gray-200 rounded-lg hover:border-orange-300 transition-colors text-center" do %>
+            <div class="h-16 w-16 mx-auto rounded-full flex items-center justify-center text-white text-xl font-bold mb-2" style="background-color: var(--flash-purple);">
+              <%= member[:name].split.map(&:first).join %>
+            </div>
+            <p class="font-medium text-gray-900 text-sm"><%= member[:name] %></p>
+            <p class="text-xl font-bold mt-2" style="color: var(--light-orange);"><%= member[:score] %>%</p>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Team Methodology Performance -->
+  <div class="bg-white rounded-lg shadow border border-gray-100 p-6">
+    <h2 class="text-xl font-bold mb-6" style="color: var(--dark-purple);">Performance par Méthodologie</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="border-l-4 border-purple-500 pl-4 py-2">
+        <h3 class="font-bold text-lg mb-2">CRONOS</h3>
+        <p class="text-3xl font-bold mb-1" style="color: var(--flash-purple);">74.2%</p>
+        <p class="text-sm text-gray-600 mb-3">45 appels</p>
+        <div class="text-xs space-y-1">
+          <p class="text-green-700">✓ Fort : Permission opener</p>
+          <p class="text-orange-700">⚠ Faible : Préparation</p>
+        </div>
+      </div>
+
+      <div class="border-l-4 border-orange-500 pl-4 py-2">
+        <h3 class="font-bold text-lg mb-2">SYNTHÉON</h3>
+        <p class="text-3xl font-bold mb-1" style="color: var(--light-orange);">81.5%</p>
+        <p class="text-sm text-gray-600 mb-3">68 appels</p>
+        <div class="text-xs space-y-1">
+          <p class="text-green-700">✓ Fort : Questions SPIN</p>
+          <p class="text-orange-700">⚠ Faible : Contrat moral</p>
+        </div>
+      </div>
+
+      <div class="border-l-4 border-indigo-500 pl-4 py-2">
+        <h3 class="font-bold text-lg mb-2">FERMION</h3>
+        <p class="text-3xl font-bold mb-1" style="color: var(--dark-purple);">77.8%</p>
+        <p class="text-sm text-gray-600 mb-3">29 appels</p>
+        <div class="text-xs space-y-1">
+          <p class="text-green-700">✓ Fort : Reconnexion</p>
+          <p class="text-orange-700">⚠ Faible : Discussion prix</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

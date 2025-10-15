@@ -1,0 +1,77 @@
+<% content_for :title, "Membres de l'Équipe - WeSales" %>
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold" style="color: var(--dark-purple);">Membres de l'Équipe</h1>
+    <p class="mt-2 text-gray-600">Gérez et suivez les performances individuelles</p>
+  </div>
+
+  <div class="bg-white rounded-lg shadow border border-gray-100">
+    <div class="overflow-x-auto">
+      <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gray-50">
+          <tr>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Membre</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Appels</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Score Moyen</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Tendance</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Membre depuis</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Statut</th>
+            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          <% @members.each do |member| %>
+            <tr class="hover:bg-gray-50">
+              <td class="px-6 py-4">
+                <%= link_to manager_equipe_membre_path(member[:id]), class: "flex items-center" do %>
+                  <div class="h-10 w-10 rounded-full flex items-center justify-center text-white font-medium mr-3" style="background-color: var(--flash-purple);">
+                    <%= member[:name].split.map(&:first).join %>
+                  </div>
+                  <div>
+                    <p class="font-medium text-gray-900"><%= member[:name] %></p>
+                    <p class="text-sm text-gray-500"><%= member[:email] %></p>
+                  </div>
+                <% end %>
+              </td>
+              <td class="px-6 py-4 text-sm text-gray-900"><%= member[:calls] %></td>
+              <td class="px-6 py-4">
+                <span class="text-sm font-bold" style="color: <%= member[:avg_score] >= 80 ? 'var(--light-orange)' : 'var(--flash-purple)' %>;"><%= member[:avg_score] %>%</span>
+              </td>
+              <td class="px-6 py-4">
+                <% if member[:trend] == "up" %>
+                  <span class="inline-flex items-center text-sm text-green-600">
+                    <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M5.293 9.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.707a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                    </svg>
+                    Hausse
+                  </span>
+                <% elsif member[:trend] == "down" %>
+                  <span class="inline-flex items-center text-sm text-red-600">
+                    <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M14.707 10.293a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L9 12.586V5a1 1 0 012 0v7.586l2.293-2.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                    </svg>
+                    Baisse
+                  </span>
+                <% else %>
+                  <span class="text-sm text-gray-500">Stable</span>
+                <% end %>
+              </td>
+              <td class="px-6 py-4 text-sm text-gray-500"><%= time_ago_in_words(member[:joined]) %></td>
+              <td class="px-6 py-4">
+                <span class="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">Actif</span>
+              </td>
+              <td class="px-6 py-4 text-right">
+                <%= link_to manager_equipe_membre_path(member[:id]), class: "text-orange-600 hover:text-orange-900" do %>
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                  </svg>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

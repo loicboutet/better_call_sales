@@ -1,0 +1,60 @@
+<% content_for :title, "Paramètres - WeSales" %>
+
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold" style="color: var(--dark-purple);">Paramètres</h1>
+    <p class="mt-2 text-gray-600">Gérez vos notifications d'équipe</p>
+  </div>
+
+  <%= form_with url: manager_parametres_path, method: :patch, class: "space-y-6" do |f| %>
+    <!-- Notifications -->
+    <div class="bg-white rounded-lg shadow border border-gray-100 p-6">
+      <h2 class="text-xl font-bold mb-4" style="color: var(--dark-purple);">Notifications d'Équipe</h2>
+      <div class="space-y-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="font-medium text-gray-900">Résumé hebdomadaire de l'équipe</p>
+            <p class="text-sm text-gray-500">Recevez un rapport hebdomadaire des performances</p>
+          </div>
+          <input type="checkbox" name="email_team_summary" 
+                 <%= @settings[:notifications][:email_team_summary] ? 'checked' : '' %> 
+                 class="h-5 w-5 rounded border-gray-300" style="color: var(--light-orange);">
+        </div>
+
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="font-medium text-gray-900">Alertes de performance basse</p>
+            <p class="text-sm text-gray-500">Soyez notifié quand un membre a besoin d'attention</p>
+          </div>
+          <input type="checkbox" name="email_low_performance_alert" 
+                 <%= @settings[:notifications][:email_low_performance_alert] ? 'checked' : '' %> 
+                 class="h-5 w-5 rounded border-gray-300" style="color: var(--light-orange);">
+        </div>
+
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="font-medium text-gray-900">Jalons des membres</p>
+            <p class="text-sm text-gray-500">Notifications pour les accomplissements de l'équipe</p>
+          </div>
+          <input type="checkbox" name="email_member_milestone" 
+                 <%= @settings[:notifications][:email_member_milestone] ? 'checked' : '' %> 
+                 class="h-5 w-5 rounded border-gray-300" style="color: var(--light-orange);">
+        </div>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="flex items-center justify-between">
+      <%= link_to manager_dashboard_path, 
+          class: "px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50" do %>
+        Annuler
+      <% end %>
+      
+      <button type="submit" 
+              class="px-6 py-2 border border-transparent text-sm font-medium rounded-md text-white hover:opacity-90"
+              style="background-color: var(--light-orange);">
+        Enregistrer les paramètres
+      </button>
+    </div>
+  <% end %>
+</div>

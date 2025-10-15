@@ -1,0 +1,72 @@
+<% content_for :title, "Analyse par Critères - WeSales" %>
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold" style="color: var(--dark-purple);">Performance par Critères</h1>
+    <p class="mt-2 text-gray-600">Identifiez les forces et faiblesses collectives par étape méthodologique</p>
+  </div>
+
+  <!-- Overall Criteria Performance -->
+  <div class="bg-white rounded-lg shadow border border-gray-100 p-6 mb-8">
+    <h2 class="text-xl font-bold mb-4" style="color: var(--dark-purple);">Top 7 Étapes de Méthodologie</h2>
+    <div class="space-y-4">
+      <% @criteria_performance.each do |criterion| %>
+        <div class="border border-gray-200 rounded-lg p-4">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="font-medium text-gray-900"><%= criterion[:step] %></h3>
+            <div class="flex items-center space-x-3">
+              <span class="text-xs text-gray-500"><%= criterion[:count] %> appels</span>
+              <span class="text-lg font-bold" style="color: <%= criterion[:avg_score] >= 13 ? 'var(--light-orange)' : criterion[:avg_score] >= 9 ? 'var(--flash-purple)' : 'var(--dark-purple)' %>;"><%= criterion[:avg_score] %>/15</span>
+            </div>
+          </div>
+          
+          <div class="grid grid-cols-3 gap-4 mb-3">
+            <div>
+              <p class="text-xs text-gray-500">Moyenne équipe</p>
+              <div class="w-full bg-gray-200 rounded-full h-2 mt-1">
+                <div class="h-2 rounded-full" style="width: <%= (criterion[:avg_score] / 15.0 * 100) %>%; background-color: var(--flash-purple);"></div>
+              </div>
+            </div>
+            <div>
+              <p class="text-xs text-green-700">Meilleur: <%= criterion[:team_best] %>/15</p>
+              <div class="w-full bg-gray-200 rounded-full h-2 mt-1">
+                <div class="h-2 rounded-full bg-green-500" style="width: <%= (criterion[:team_best] / 15.0 * 100) %>%;"></div>
+              </div>
+            </div>
+            <div>
+              <p class="text-xs text-orange-700">Plus faible: <%= criterion[:team_worst] %>/15</p>
+              <div class="w-full bg-gray-200 rounded-full h-2 mt-1">
+                <div class="h-2 rounded-full bg-orange-500" style="width: <%= (criterion[:team_worst] / 15.0 * 100) %>%;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- By Methodology -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <% @by_methodology.each do |methodology, steps| %>
+      <div class="bg-white rounded-lg shadow border border-gray-100 p-6">
+        <h3 class="text-lg font-bold mb-4" style="color: var(--dark-purple);"><%= methodology.to_s.upcase %></h3>
+        <div class="space-y-3">
+          <% steps.each do |step| %>
+            <div>
+              <div class="flex justify-between text-sm mb-1">
+                <span class="text-gray-700"><%= step[:step] %></span>
+                <span class="font-bold" style="color: var(--light-orange);"><%= step[:avg] %>/15</span>
+              </div>
+              <div class="flex items-center">
+                <div class="flex-1 bg-gray-200 rounded-full h-2">
+                  <div class="h-2 rounded-full" style="width: <%= (step[:avg] / 15.0 * 100) %>%; background-color: var(--light-orange);"></div>
+                </div>
+                <span class="ml-2 text-xs"><%= step[:trend] == "up" ? "↗" : step[:trend] == "down" ? "↘" : "→" %></span>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

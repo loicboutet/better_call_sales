@@ -1,0 +1,55 @@
+<% content_for :title, "#{@criterion[:step_name]} - Critères" %>
+
+<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div class="mb-4">
+    <%= link_to admin_criteres_path, class: "inline-flex items-center text-sm font-medium hover:underline", style: "color: var(--flash-purple);" do %>
+      <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+      </svg>
+      Retour aux critères
+    <% end %>
+  </div>
+
+  <div class="mb-8 flex items-center justify-between">
+    <div>
+      <h1 class="text-3xl font-bold" style="color: var(--dark-purple);"><%= @criterion[:step_name] %></h1>
+      <p class="mt-2 text-gray-600">Méthodologie <%= @criterion[:methodology].upcase %> - Étape <%= @criterion[:position] %></p>
+    </div>
+    <%= link_to edit_admin_critere_path(@criterion[:id]), class: "px-4 py-2 border border-transparent rounded-md text-sm font-medium text-white hover:opacity-90", style: "background-color: var(--flash-purple);" do %>
+      Modifier
+    <% end %>
+  </div>
+
+  <div class="space-y-6">
+    <div class="bg-white rounded-lg shadow border border-gray-100 p-6">
+      <h2 class="text-xl font-bold mb-4" style="color: var(--dark-purple);">Posture Attendue</h2>
+      <p class="text-gray-700"><em><%= @criterion[:posture_expected] %></em></p>
+    </div>
+
+    <div class="bg-white rounded-lg shadow border border-gray-100 p-6">
+      <h2 class="text-xl font-bold mb-4" style="color: var(--dark-purple);">Les 5 Critères d'Évaluation</h2>
+      <div class="space-y-4">
+        <% @criterion[:criteria].each_with_index do |crit, index| %>
+          <div class="border border-gray-200 rounded-lg p-4">
+            <div class="flex items-start">
+              <div class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm" style="background-color: var(--flash-purple);">
+                <%= index + 1 %>
+              </div>
+              <div class="ml-4 flex-1">
+                <h3 class="font-bold text-gray-900"><%= crit[:name] %></h3>
+                <p class="text-sm text-gray-600 mt-1"><%= crit[:description] %></p>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-lg shadow border border-gray-100 p-6">
+      <h2 class="text-xl font-bold mb-4" style="color: var(--dark-purple);">Prompt d'Évaluation IA</h2>
+      <div class="bg-gray-50 rounded p-4">
+        <p class="text-sm text-gray-700 font-mono"><%= @criterion[:evaluation_prompt] %></p>
+      </div>
+    </div>
+  </div>
+</div>

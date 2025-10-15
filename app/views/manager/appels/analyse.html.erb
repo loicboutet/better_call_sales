@@ -1,0 +1,48 @@
+<% content_for :title, "Analyse - #{@call[:title]} - WeSales" %>
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <!-- Back Link -->
+  <div class="mb-4">
+    <%= link_to manager_appel_path(@call[:id]), class: "inline-flex items-center text-sm font-medium hover:underline", style: "color: var(--light-orange);" do %>
+      <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+      </svg>
+      Retour à l'appel
+    <% end %>
+  </div>
+
+  <!-- Page Header -->
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold" style="color: var(--dark-purple);">Analyse Détaillée</h1>
+    <p class="mt-2 text-gray-600"><%= @call[:title] %> - <%= @call[:member_name] %> - <%= l(@call[:date], format: :long) %></p>
+  </div>
+
+  <!-- Render shared partial for detailed analysis -->
+  <%= render partial: 'shared/detailed_analysis', locals: { call: @call, analysis: @analysis } %>
+
+  <!-- Manager Actions -->
+  <div class="flex items-center justify-between">
+    <%= link_to manager_appel_path(@call[:id]), 
+        class: "px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50" do %>
+      Retour à l'appel
+    <% end %>
+    
+    <div class="flex items-center space-x-3">
+      <%= link_to manager_equipe_membre_path(@call[:member_id]),
+          class: "px-4 py-2 border border-transparent rounded-md text-sm font-medium text-white hover:opacity-90",
+          style: "background-color: var(--light-orange);" do %>
+        <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+        </svg>
+        Profil du commercial
+      <% end %>
+      
+      <button class="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50">
+        <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+        </svg>
+        Télécharger le rapport
+      </button>
+    </div>
+  </div>
+</div>

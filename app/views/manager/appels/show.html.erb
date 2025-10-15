@@ -1,0 +1,300 @@
+<% content_for :title, "#{@call[:title]} - WeSales" %>
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <!-- Back Link -->
+  <div class="mb-4">
+    <%= link_to manager_appels_path, class: "inline-flex items-center text-sm font-medium hover:underline", style: "color: var(--light-orange);" do %>
+      <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+      </svg>
+      Retour aux appels
+    <% end %>
+  </div>
+
+  <!-- Page Header -->
+  <div class="mb-8 flex items-start justify-between">
+    <div class="flex-1">
+      <h1 class="text-3xl font-bold" style="color: var(--dark-purple);"><%= @call[:title] %></h1>
+      <div class="mt-3 flex items-center space-x-4 text-sm text-gray-600">
+        <span class="flex items-center">
+          <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+          </svg>
+          <%= @call[:member_name] %>
+        </span>
+        <span class="flex items-center">
+          <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+          </svg>
+          <%= l(@call[:date], format: :long) %>
+        </span>
+        <span class="flex items-center">
+          <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          <%= "#{@call[:duration] / 60} min" %>
+        </span>
+        <span class="px-3 py-1 text-xs font-medium rounded-full" style="background-color: var(--cream-orange); color: var(--dark-purple);">
+          <%= @call[:methodology] %>
+        </span>
+      </div>
+    </div>
+    
+    <% if @call[:status] == "analyzed" %>
+      <%= link_to analyse_manager_appel_path(@call[:id]), 
+          class: "ml-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white hover:opacity-90",
+          style: "background-color: var(--light-orange);" do %>
+        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+        </svg>
+        Voir l'analyse complète
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <!-- Main Content -->
+    <div class="lg:col-span-2 space-y-6">
+      <!-- Call Info Card -->
+      <div class="bg-white rounded-lg shadow border border-gray-100 p-6">
+        <h2 class="text-xl font-bold mb-4" style="color: var(--dark-purple);">Informations de l'appel</h2>
+        
+        <dl class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <dt class="text-sm font-medium text-gray-500">Commercial</dt>
+            <dd class="mt-1 flex items-center">
+              <div class="h-8 w-8 rounded-full flex items-center justify-center text-white text-xs font-bold mr-2" style="background-color: var(--flash-purple);">
+                <%= @call[:member_name].split.map(&:first).join %>
+              </div>
+              <%= link_to @call[:member_name], manager_equipe_membre_path(@call[:member_id]), class: "text-sm font-medium hover:underline", style: "color: var(--light-orange);" %>
+            </dd>
+          </div>
+          <div>
+            <dt class="text-sm font-medium text-gray-500">Client</dt>
+            <dd class="mt-1 text-sm text-gray-900"><%= @call[:client_name] %></dd>
+          </div>
+          <div>
+            <dt class="text-sm font-medium text-gray-500">Entreprise</dt>
+            <dd class="mt-1 text-sm text-gray-900"><%= @call[:client_company] %></dd>
+          </div>
+          <div>
+            <dt class="text-sm font-medium text-gray-500">Type d'appel</dt>
+            <dd class="mt-1 text-sm text-gray-900">
+              <%= case @call[:call_type]
+                  when "cold_call" then "Appel à froid"
+                  when "discovery_call" then "Appel découverte"
+                  when "negotiation_call" then "Appel négociation"
+                  when "closing_call" then "Appel closing"
+                  when "rfp_call" then "Soutenance AO"
+                  end %>
+            </dd>
+          </div>
+          <div>
+            <dt class="text-sm font-medium text-gray-500">Méthodologie</dt>
+            <dd class="mt-1 text-sm text-gray-900"><%= @call[:methodology] %></dd>
+          </div>
+          <div>
+            <dt class="text-sm font-medium text-gray-500">Durée</dt>
+            <dd class="mt-1 text-sm text-gray-900"><%= @call[:duration] / 60 %> minutes</dd>
+          </div>
+        </dl>
+
+        <% if @call[:description].present? %>
+          <div class="mt-4 pt-4 border-t border-gray-200">
+            <dt class="text-sm font-medium text-gray-500 mb-2">Description</dt>
+            <dd class="text-sm text-gray-900"><%= @call[:description] %></dd>
+          </div>
+        <% end %>
+      </div>
+
+      <!-- Audio Player -->
+      <div class="bg-white rounded-lg shadow border border-gray-100 p-6">
+        <h2 class="text-xl font-bold mb-4" style="color: var(--dark-purple);">Enregistrement</h2>
+        
+        <div class="bg-gray-50 rounded-lg p-4">
+          <audio controls class="w-full">
+            <source src="#" type="audio/mpeg">
+            Votre navigateur ne supporte pas la lecture audio.
+          </audio>
+        </div>
+        
+        <div class="mt-4 flex items-center justify-between">
+          <button class="text-sm font-medium text-gray-500 hover:text-gray-700">
+            <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+            </svg>
+            Voir la transcription
+          </button>
+          
+          <button class="text-sm font-medium text-gray-500 hover:text-gray-700">
+            <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+            </svg>
+            Télécharger l'audio
+          </button>
+        </div>
+      </div>
+
+      <!-- Analysis Summary -->
+      <% if @call[:status] == "analyzed" %>
+        <div class="bg-white rounded-lg shadow border border-gray-100 p-6">
+          <h2 class="text-xl font-bold mb-4" style="color: var(--dark-purple);">Résumé de l'Analyse</h2>
+          
+          <div class="prose prose-sm max-w-none text-gray-700 mb-6">
+            <p><%= @analysis[:summary] %></p>
+          </div>
+
+          <!-- Strengths & Areas for Improvement -->
+          <div class="grid grid-cols-1 gap-4 mb-4">
+            <div class="bg-green-50 rounded-lg border border-green-200 p-4">
+              <h3 class="text-sm font-bold text-green-900 mb-2 flex items-center">
+                <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                Points Forts
+              </h3>
+              <ul class="space-y-1">
+                <% @analysis[:strengths].each do |strength| %>
+                  <li class="text-xs text-green-800">• <%= strength %></li>
+                <% end %>
+              </ul>
+            </div>
+
+            <div class="bg-orange-50 rounded-lg border border-orange-200 p-4">
+              <h3 class="text-sm font-bold text-orange-900 mb-2 flex items-center">
+                <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                </svg>
+                Axes d'Amélioration
+              </h3>
+              <ul class="space-y-1">
+                <% @analysis[:areas_for_improvement].each do |area| %>
+                  <li class="text-xs text-orange-800">• <%= area %></li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+
+          <%= link_to analyse_manager_appel_path(@call[:id]), 
+              class: "block w-full text-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white hover:opacity-90",
+              style: "background-color: var(--light-orange);" do %>
+            <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+            </svg>
+            Voir l'analyse complète
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="lg:col-span-1 space-y-6">
+      <!-- Score Card -->
+      <% if @call[:status] == "analyzed" %>
+        <div class="bg-white rounded-lg shadow border border-gray-100 p-6">
+          <h3 class="text-lg font-bold mb-4" style="color: var(--dark-purple);">Performance</h3>
+          
+          <div class="text-center mb-6">
+            <div class="text-5xl font-bold mb-2" style="color: <%= @call[:percentage] >= 80 ? 'var(--light-orange)' : @call[:percentage] >= 60 ? 'var(--flash-purple)' : 'var(--dark-purple)' %>;">
+              <%= @call[:percentage].round(1) %>%
+            </div>
+            <div class="text-sm text-gray-500">
+              <%= @call[:overall_score].round(1) %> / <%= @call[:max_score] %> points
+            </div>
+            
+            <div class="mt-4 w-full bg-gray-200 rounded-full h-3">
+              <div class="h-3 rounded-full transition-all" 
+                   style="width: <%= [@call[:percentage], 100].min %>%; background-color: <%= @call[:percentage] >= 80 ? 'var(--light-orange)' : @call[:percentage] >= 60 ? 'var(--flash-purple)' : 'var(--dark-purple)' %>;"></div>
+            </div>
+          </div>
+
+          <div class="space-y-3">
+            <div class="flex items-center justify-between text-sm">
+              <span class="text-gray-600">Niveau</span>
+              <span class="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
+                Excellent
+              </span>
+            </div>
+            <div class="flex items-center justify-between text-sm">
+              <span class="text-gray-600">Méthodologie</span>
+              <span class="font-medium" style="color: var(--flash-purple);"><%= @call[:methodology] %></span>
+            </div>
+            <div class="flex items-center justify-between text-sm">
+              <span class="text-gray-600">Type d'appel</span>
+              <span class="font-medium text-gray-900">
+                <%= case @call[:call_type]
+                    when "cold_call" then "Appel à froid"
+                    when "discovery_call" then "Découverte"
+                    when "negotiation_call" then "Négociation"
+                    when "closing_call" then "Closing"
+                    when "rfp_call" then "Soutenance AO"
+                    end %>
+              </span>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+      <!-- Commercial Card -->
+      <%= link_to manager_equipe_membre_path(@call[:member_id]), class: "block bg-white rounded-lg shadow border border-gray-100 p-6 hover:border-orange-300 transition-colors" do %>
+        <h3 class="text-sm font-medium text-gray-600 mb-3">Commercial</h3>
+        <div class="flex items-center">
+          <div class="h-12 w-12 rounded-full flex items-center justify-center text-white font-bold" style="background-color: var(--flash-purple);">
+            <%= @call[:member_name].split.map(&:first).join %>
+          </div>
+          <div class="ml-3">
+            <p class="font-medium text-gray-900"><%= @call[:member_name] %></p>
+            <p class="text-xs text-gray-500">Voir le profil →</p>
+          </div>
+        </div>
+      <% end %>
+
+      <!-- Status Card -->
+      <div class="bg-white rounded-lg shadow border border-gray-100 p-6">
+        <h3 class="text-lg font-bold mb-4" style="color: var(--dark-purple);">Statut</h3>
+        
+        <div class="space-y-3">
+          <div class="flex items-center">
+            <% if @call[:status] == "analyzed" %>
+              <div class="flex-shrink-0 h-10 w-10 rounded-full bg-green-100 flex items-center justify-center">
+                <svg class="h-6 w-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                </svg>
+              </div>
+              <div class="ml-4">
+                <p class="text-sm font-medium text-gray-900">Analyse terminée</p>
+                <p class="text-sm text-gray-500">Analysé il y a 2 jours</p>
+              </div>
+            <% else %>
+              <div class="flex-shrink-0 h-10 w-10 rounded-full bg-yellow-100 flex items-center justify-center">
+                <svg class="h-6 w-6 text-yellow-600 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                </svg>
+              </div>
+              <div class="ml-4">
+                <p class="text-sm font-medium text-gray-900">Analyse en cours</p>
+                <p class="text-sm text-gray-500">Temps estimé : 5-10 min</p>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <!-- Actions Manager -->
+      <div class="bg-white rounded-lg shadow border border-gray-100 p-6">
+        <h3 class="text-lg font-bold mb-4" style="color: var(--dark-purple);">Actions Manager</h3>
+        
+        <div class="space-y-2">
+          <%= link_to manager_membre_appels_path(@call[:member_id]), 
+              class: "block w-full text-center px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50" do %>
+            Tous les appels de ce commercial
+          <% end %>
+          
+          <button class="block w-full text-center px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50">
+            Télécharger le rapport
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

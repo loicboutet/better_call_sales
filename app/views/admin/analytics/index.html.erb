@@ -1,0 +1,52 @@
+<% content_for :title, "Analytics - Administration" %>
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div class="mb-8 flex items-center justify-between">
+    <div>
+      <h1 class="text-3xl font-bold" style="color: var(--dark-purple);">Analytics Plateforme</h1>
+      <p class="mt-2 text-gray-600">Vue d'ensemble de l'utilisation et des performances</p>
+    </div>
+    <div class="flex space-x-3">
+      <%= link_to "Utilisation", admin_analyses_utilisation_path, class: "px-4 py-2 border border-gray-300 rounded-md text-sm font-medium hover:bg-gray-50" %>
+      <%= link_to "Performance", admin_analyses_performance_path, class: "px-4 py-2 border border-gray-300 rounded-md text-sm font-medium hover:bg-gray-50" %>
+    </div>
+  </div>
+
+  <!-- Stats Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+    <div class="bg-white rounded-lg shadow p-6 text-center">
+      <p class="text-3xl font-bold" style="color: var(--flash-purple);"><%= @overview[:total_calls_this_month] %></p>
+      <p class="text-sm text-gray-600 mt-1">Appels ce mois</p>
+      <p class="text-xs text-green-600 mt-1">+<%= (((@overview[:total_calls_this_month] - @overview[:total_calls_last_month]).to_f / @overview[:total_calls_last_month]) * 100).round(1) %>%</p>
+    </div>
+
+    <div class="bg-white rounded-lg shadow p-6 text-center">
+      <p class="text-3xl font-bold" style="color: var(--light-orange);"><%= @overview[:avg_analysis_time] %></p>
+      <p class="text-sm text-gray-600 mt-1">Temps moyen (min)</p>
+    </div>
+
+    <div class="bg-white rounded-lg shadow p-6 text-center">
+      <p class="text-3xl font-bold" style="color: var(--dark-purple);"><%= @overview[:active_users_today] %></p>
+      <p class="text-sm text-gray-600 mt-1">Utilisateurs actifs</p>
+    </div>
+
+    <div class="bg-white rounded-lg shadow p-6 text-center">
+      <p class="text-3xl font-bold text-green-600">99.8%</p>
+      <p class="text-sm text-gray-600 mt-1">Disponibilité</p>
+    </div>
+  </div>
+
+  <!-- Trends Chart -->
+  <div class="bg-white rounded-lg shadow border border-gray-100 p-6 mb-8">
+    <h2 class="text-xl font-bold mb-4" style="color: var(--dark-purple);">Évolution Plateforme</h2>
+    <div class="h-64 flex items-end justify-between space-x-2">
+      <% @trends.each do |point| %>
+        <div class="flex-1 flex flex-col items-center">
+          <div class="w-full rounded-t-lg" style="height: <%= (point[:calls] / 150.0 * 100) %>%; background-color: var(--flash-purple);"></div>
+          <div class="mt-2 text-xs text-gray-600"><%= l(point[:date], format: :short) %></div>
+          <div class="text-xs font-medium" style="color: var(--flash-purple);"><%= point[:calls] %></div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

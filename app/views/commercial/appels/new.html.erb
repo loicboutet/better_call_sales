@@ -1,0 +1,143 @@
+<% content_for :title, "Télécharger un Appel - WeSales" %>
+
+<div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold" style="color: var(--dark-purple);">Télécharger un Appel</h1>
+    <p class="mt-2 text-gray-600">Ajoutez un nouvel enregistrement pour obtenir une analyse détaillée</p>
+  </div>
+
+  <%= form_with url: commercial_appels_path, method: :post, multipart: true, class: "space-y-6" do |f| %>
+    <div class="bg-white rounded-lg shadow border border-gray-100 p-6">
+      <!-- Call Type Selection -->
+      <div class="mb-6">
+        <label class="block text-sm font-medium text-gray-700 mb-2">
+          Type d'appel <span class="text-red-500">*</span>
+        </label>
+        <p class="text-sm text-gray-500 mb-3">Sélectionnez le type d'appel pour appliquer la méthodologie appropriée</p>
+        
+        <div class="space-y-3">
+          <% @call_types.each do |type| %>
+            <label class="relative flex items-start p-4 border-2 rounded-lg cursor-pointer hover:border-purple-300 transition-colors">
+              <input type="radio" name="call_type" value="<%= type[:value] %>" class="mt-1" required>
+              <div class="ml-3 flex-1">
+                <div class="flex items-center justify-between">
+                  <span class="block text-sm font-medium text-gray-900"><%= type[:label] %></span>
+                  <span class="px-2 py-1 text-xs font-medium rounded-full" style="background-color: var(--cream-orange); color: var(--dark-purple);">
+                    <%= type[:methodology] %>
+                  </span>
+                </div>
+              </div>
+            </label>
+          <% end %>
+        </div>
+      </div>
+
+      <hr class="my-6">
+
+      <!-- File Upload -->
+      <div class="mb-6">
+        <label class="block text-sm font-medium text-gray-700 mb-2">
+          Fichier audio <span class="text-red-500">*</span>
+        </label>
+        <p class="text-sm text-gray-500 mb-3">Formats acceptés : MP3, WAV, M4A (max 100 Mo)</p>
+        
+        <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg hover:border-purple-400 transition-colors">
+          <div class="space-y-1 text-center">
+            <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+              <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <div class="flex text-sm text-gray-600">
+              <label class="relative cursor-pointer rounded-md font-medium hover:text-purple-500 focus-within:outline-none" style="color: var(--flash-purple);">
+                <span>Télécharger un fichier</span>
+                <input type="file" name="audio_file" class="sr-only" accept="audio/*" required>
+              </label>
+              <p class="pl-1">ou glisser-déposer</p>
+            </div>
+            <p class="text-xs text-gray-500">MP3, WAV, M4A jusqu'à 100 Mo</p>
+          </div>
+        </div>
+      </div>
+
+      <hr class="my-6">
+
+      <!-- Call Details -->
+      <div class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">
+            Titre de l'appel <span class="text-red-500">*</span>
+          </label>
+          <input type="text" name="title" required 
+                 placeholder="Ex: Appel découverte - Acme Corp"
+                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">
+              Nom du client
+            </label>
+            <input type="text" name="client_name" 
+                   placeholder="Ex: Jean Dupont"
+                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">
+              Entreprise
+            </label>
+            <input type="text" name="client_company" 
+                   placeholder="Ex: Acme Corp"
+                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">
+            Date de l'appel <span class="text-red-500">*</span>
+          </label>
+          <input type="date" name="call_date" required 
+                 value="<%= Date.today %>"
+                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">
+            Description / Notes
+          </label>
+          <textarea name="description" rows="4" 
+                    placeholder="Ajoutez des notes sur cet appel..."
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="flex items-center justify-between">
+      <%= link_to "Annuler", commercial_appels_path, 
+          class: "px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50" %>
+      
+      <button type="submit" 
+              class="px-6 py-2 border border-transparent text-sm font-medium rounded-md text-white hover:opacity-90 transition-opacity"
+              style="background-color: var(--flash-purple);">
+        Télécharger et analyser
+      </button>
+    </div>
+
+    <!-- Info Box -->
+    <div class="bg-blue-50 border-l-4 border-blue-400 p-4">
+      <div class="flex">
+        <div class="flex-shrink-0">
+          <svg class="h-5 w-5 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+          </svg>
+        </div>
+        <div class="ml-3">
+          <p class="text-sm text-blue-700">
+            <strong>À savoir :</strong> L'analyse peut prendre de 5 à 15 minutes selon la durée de l'appel. 
+            Vous recevrez une notification dès que l'analyse sera terminée.
+          </p>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

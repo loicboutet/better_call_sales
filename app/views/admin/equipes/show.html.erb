@@ -1,0 +1,77 @@
+<% content_for :title, "#{@team[:name]} - Administration" %>
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div class="mb-4">
+    <%= link_to admin_equipes_path, class: "inline-flex items-center text-sm font-medium hover:underline", style: "color: var(--light-orange);" do %>
+      <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+      </svg>
+      Retour aux équipes
+    <% end %>
+  </div>
+
+  <div class="mb-8 flex items-center justify-between">
+    <div>
+      <h1 class="text-3xl font-bold" style="color: var(--dark-purple);"><%= @team[:name] %></h1>
+      <p class="mt-2 text-gray-600"><%= @team[:description] %></p>
+    </div>
+    <%= link_to edit_admin_equipe_path(@team[:id]), class: "px-4 py-2 border border-transparent rounded-md text-sm font-medium text-white hover:opacity-90", style: "background-color: var(--light-orange);" do %>
+      Modifier
+    <% end %>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <div class="lg:col-span-2">
+      <div class="bg-white rounded-lg shadow border border-gray-100 p-6 mb-6">
+        <h2 class="text-xl font-bold mb-4" style="color: var(--dark-purple);">Informations</h2>
+        <dl class="grid grid-cols-2 gap-4">
+          <div>
+            <dt class="text-sm text-gray-500">Manager</dt>
+            <dd class="text-sm font-medium text-gray-900"><%= @team[:manager_name] %></dd>
+          </div>
+          <div>
+            <dt class="text-sm text-gray-500">Créée le</dt>
+            <dd class="text-sm font-medium text-gray-900"><%= l(@team[:created_at], format: :long) %></dd>
+          </div>
+        </dl>
+      </div>
+
+      <div class="bg-white rounded-lg shadow border border-gray-100 p-6">
+        <h2 class="text-xl font-bold mb-4" style="color: var(--dark-purple);">Membres (<%= @members.length %>)</h2>
+        <div class="space-y-2">
+          <% @members.each do |member| %>
+            <%= link_to admin_utilisateur_path(member[:id]), class: "flex items-center justify-between p-3 border border-gray-200 rounded hover:border-purple-300" do %>
+              <div class="flex items-center">
+                <div class="h-10 w-10 rounded-full flex items-center justify-center text-white font-medium mr-3" style="background-color: var(--flash-purple);">
+                  <%= member[:name].split.map(&:first).join %>
+                </div>
+                <div>
+                  <p class="font-medium text-gray-900"><%= member[:name] %></p>
+                  <p class="text-sm text-gray-500"><%= member[:email] %></p>
+                </div>
+              </div>
+              <div class="text-right">
+                <p class="text-sm font-bold" style="color: var(--light-orange);"><%= member[:avg_score] %>%</p>
+                <p class="text-xs text-gray-500"><%= member[:calls] %> appels</p>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="lg:col-span-1">
+      <div class="bg-white rounded-lg shadow border border-gray-100 p-6">
+        <h3 class="text-lg font-bold mb-4" style="color: var(--dark-purple);">Actions</h3>
+        <div class="space-y-2">
+          <%= link_to edit_admin_equipe_path(@team[:id]), class: "block w-full px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 text-center" do %>
+            Modifier l'équipe
+          <% end %>
+          <%= button_to admin_equipe_path(@team[:id]), method: :delete, data: { confirm: "Supprimer cette équipe ?" }, class: "block w-full px-4 py-2 border border-red-300 rounded-md text-sm font-medium text-red-700 hover:bg-red-50 text-center" do %>
+            Supprimer l'équipe
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

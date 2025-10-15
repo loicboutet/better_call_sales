@@ -1,0 +1,87 @@
+<% content_for :title, "#{@member[:name]} - WeSales" %>
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div class="mb-4">
+    <%= link_to manager_equipe_membres_path, class: "inline-flex items-center text-sm font-medium hover:underline", style: "color: var(--light-orange);" do %>
+      <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+      </svg>
+      Retour aux membres
+    <% end %>
+  </div>
+
+  <div class="mb-8 flex items-start justify-between">
+    <div class="flex items-center">
+      <div class="h-16 w-16 rounded-full flex items-center justify-center text-white text-2xl font-bold mr-4" style="background-color: var(--flash-purple);">
+        <%= @member[:name].split.map(&:first).join %>
+      </div>
+      <div>
+        <h1 class="text-3xl font-bold" style="color: var(--dark-purple);"><%= @member[:name] %></h1>
+        <p class="text-gray-600"><%= @member[:email] %> • <%= @member[:team] %></p>
+      </div>
+    </div>
+    <%= link_to manager_membre_appels_path(@member[:id]), class: "px-4 py-2 border border-transparent rounded-md text-sm font-medium text-white hover:opacity-90", style: "background-color: var(--light-orange);" do %>
+      Voir tous les appels
+    <% end %>
+  </div>
+
+  <!-- Stats Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+    <div class="bg-white rounded-lg shadow p-6 text-center">
+      <p class="text-3xl font-bold" style="color: var(--dark-purple);"><%= @member[:total_calls] %></p>
+      <p class="text-sm text-gray-600 mt-1">Total appels</p>
+    </div>
+    <div class="bg-white rounded-lg shadow p-6 text-center">
+      <p class="text-3xl font-bold" style="color: var(--light-orange);"><%= @member[:avg_score] %>%</p>
+      <p class="text-sm text-gray-600 mt-1">Score moyen</p>
+    </div>
+    <div class="bg-white rounded-lg shadow p-6 text-center">
+      <p class="text-3xl font-bold text-green-600">+<%= @member[:improvement_rate] %>%</p>
+      <p class="text-sm text-gray-600 mt-1">Amélioration</p>
+    </div>
+    <div class="bg-white rounded-lg shadow p-6 text-center">
+      <p class="text-xl font-bold" style="color: var(--flash-purple);"><%= @member[:best_methodology] %></p>
+      <p class="text-sm text-gray-600 mt-1">Meilleure méthodo</p>
+    </div>
+  </div>
+
+  <!-- Methodology Performance & Recent Calls -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <div class="bg-white rounded-lg shadow border border-gray-100 p-6">
+      <h2 class="text-xl font-bold mb-4" style="color: var(--dark-purple);">Performance par Méthodologie</h2>
+      <div class="space-y-4">
+        <% @member_methodology_performance.each do |methodology, data| %>
+          <div>
+            <div class="flex justify-between mb-2">
+              <span class="text-sm font-medium"><%= methodology.to_s.upcase %></span>
+              <span class="text-sm font-bold" style="color: var(--light-orange);"><%= data[:score] %>%</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2">
+              <div class="h-2 rounded-full" style="width: <%= [data[:score], 100].min %>%; background-color: var(--light-orange);"></div>
+            </div>
+            <div class="mt-1 text-xs text-gray-600">
+              <span class="text-green-700">✓ <%= data[:strongest_step] %></span>
+              <span class="mx-2">•</span>
+              <span class="text-orange-700">⚠ <%= data[:weakest_step] %></span>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-lg shadow border border-gray-100 p-6">
+      <h2 class="text-xl font-bold mb-4" style="color: var(--dark-purple);">Appels Récents</h2>
+      <div class="space-y-3">
+        <% @member_calls.take(4).each do |call| %>
+          <%= link_to manager_appel_path(call[:id]), class: "block border border-gray-200 rounded p-3 hover:border-orange-300 transition-colors" do %>
+            <p class="font-medium text-gray-900 text-sm"><%= call[:title] %></p>
+            <div class="flex items-center justify-between mt-1">
+              <span class="px-2 py-0.5 text-xs rounded-full" style="background-color: var(--cream-orange); color: var(--dark-purple);"><%= call[:methodology] %></span>
+              <span class="text-sm font-bold" style="color: var(--light-orange);"><%= call[:score] %>%</span>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

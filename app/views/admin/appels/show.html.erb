@@ -1,0 +1,75 @@
+<% content_for :title, "#{@call[:title]} - Administration" %>
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div class="mb-4">
+    <%= link_to admin_appels_path, class: "inline-flex items-center text-sm font-medium hover:underline", style: "color: var(--flash-purple);" do %>
+      <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+      </svg>
+      Retour aux appels
+    <% end %>
+  </div>
+
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold" style="color: var(--dark-purple);"><%= @call[:title] %></h1>
+    <p class="mt-2 text-gray-600"><%= @call[:user_name] %> (<%= @call[:team_name] %>) • <%= l(@call[:date], format: :long) %></p>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <div class="lg:col-span-2">
+      <div class="bg-white rounded-lg shadow border border-gray-100 p-6">
+        <h2 class="text-xl font-bold mb-4" style="color: var(--dark-purple);">Informations</h2>
+        <dl class="grid grid-cols-2 gap-4">
+          <div>
+            <dt class="text-sm text-gray-500">Utilisateur</dt>
+            <dd class="text-sm font-medium text-gray-900"><%= @call[:user_name] %></dd>
+          </div>
+          <div>
+            <dt class="text-sm text-gray-500">Équipe</dt>
+            <dd class="text-sm font-medium text-gray-900"><%= @call[:team_name] %></dd>
+          </div>
+          <div>
+            <dt class="text-sm text-gray-500">Client</dt>
+            <dd class="text-sm font-medium text-gray-900"><%= @call[:client_name] %></dd>
+          </div>
+          <div>
+            <dt class="text-sm text-gray-500">Entreprise</dt>
+            <dd class="text-sm font-medium text-gray-900"><%= @call[:client_company] %></dd>
+          </div>
+          <div>
+            <dt class="text-sm text-gray-500">Méthodologie</dt>
+            <dd class="text-sm font-medium text-gray-900"><%= @call[:methodology] %></dd>
+          </div>
+          <div>
+            <dt class="text-sm text-gray-500">Durée</dt>
+            <dd class="text-sm font-medium text-gray-900"><%= @call[:duration] / 60 %> min</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+
+    <div class="lg:col-span-1">
+      <% if @call[:status] == "analyzed" %>
+        <div class="bg-white rounded-lg shadow border border-gray-100 p-6 mb-6">
+          <h3 class="text-lg font-bold mb-4" style="color: var(--dark-purple);">Score</h3>
+          <div class="text-center">
+            <div class="text-5xl font-bold mb-2" style="color: var(--light-orange);"><%= @call[:percentage].round(1) %>%</div>
+            <div class="text-sm text-gray-500"><%= @call[:overall_score].round(1) %>/<%= @call[:max_score] %></div>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="bg-white rounded-lg shadow border border-gray-100 p-6">
+        <h3 class="text-lg font-bold mb-4" style="color: var(--dark-purple);">Actions Admin</h3>
+        <div class="space-y-2">
+          <%= link_to admin_utilisateur_path(@call[:user_id]), class: "block w-full px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 text-center" do %>
+            Voir l'utilisateur
+          <% end %>
+          <%= button_to admin_appel_path(@call[:id]), method: :delete, data: { confirm: "Supprimer cet appel ?" }, class: "block w-full px-4 py-2 border border-red-300 rounded-md text-sm font-medium text-red-700 hover:bg-red-50 text-center" do %>
+            Supprimer l'appel
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

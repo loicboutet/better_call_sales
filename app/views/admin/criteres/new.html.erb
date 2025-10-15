@@ -1,0 +1,44 @@
+<% content_for :title, "Nouveau Critère - Administration" %>
+
+<div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold" style="color: var(--dark-purple);">Nouveau Critère</h1>
+    <p class="mt-2 text-gray-600">Configuration avancée - Méthodologie Better Call Sales</p>
+  </div>
+
+  <%= form_with url: admin_criteres_path, method: :post, class: "space-y-6" do |f| %>
+    <div class="bg-white rounded-lg shadow border border-gray-100 p-6 space-y-4">
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Méthodologie *</label>
+        <select name="methodology" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500">
+          <option value="">Sélectionner</option>
+          <% @methodologies.each do |method| %>
+            <option value="<%= method[:value] %>"><%= method[:label] %></option>
+          <% end %>
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Nom de l'étape *</label>
+        <input type="text" name="step_name" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500">
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Position *</label>
+        <input type="number" name="position" required min="1" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500">
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Posture attendue</label>
+        <input type="text" name="posture" placeholder="Ex: Crédible, collaborative" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500">
+      </div>
+    </div>
+
+    <div class="flex items-center justify-between">
+      <%= link_to "Annuler", admin_criteres_path, class: "px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50" %>
+      <button type="submit" class="px-6 py-2 border border-transparent text-sm font-medium rounded-md text-white hover:opacity-90" style="background-color: var(--flash-purple);">
+        Créer
+      </button>
+    </div>
+  <% end %>
+</div>

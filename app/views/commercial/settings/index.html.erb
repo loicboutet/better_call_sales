@@ -1,0 +1,60 @@
+<% content_for :title, "Paramètres - WeSales" %>
+
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold" style="color: var(--dark-purple);">Paramètres</h1>
+    <p class="mt-2 text-gray-600">Gérez vos préférences de notifications</p>
+  </div>
+
+  <%= form_with url: commercial_parametres_path, method: :patch, class: "space-y-6" do |f| %>
+    <!-- Notifications -->
+    <div class="bg-white rounded-lg shadow border border-gray-100 p-6">
+      <h2 class="text-xl font-bold mb-4" style="color: var(--dark-purple);">Notifications</h2>
+      <div class="space-y-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="font-medium text-gray-900">Email à la fin d'analyse</p>
+            <p class="text-sm text-gray-500">Recevez un email quand l'analyse d'un appel est terminée</p>
+          </div>
+          <input type="checkbox" name="email_on_analysis_complete" 
+                 <%= @settings[:notifications][:email_on_analysis_complete] ? 'checked' : '' %>
+                 class="h-5 w-5 rounded border-gray-300" style="color: var(--flash-purple);">
+        </div>
+
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="font-medium text-gray-900">Nouvelles recommandations</p>
+            <p class="text-sm text-gray-500">Soyez notifié des nouvelles recommandations personnalisées</p>
+          </div>
+          <input type="checkbox" name="email_on_new_recommendation" 
+                 <%= @settings[:notifications][:email_on_new_recommendation] ? 'checked' : '' %>
+                 class="h-5 w-5 rounded border-gray-300" style="color: var(--flash-purple);">
+        </div>
+
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="font-medium text-gray-900">Résumé hebdomadaire</p>
+            <p class="text-sm text-gray-500">Recevez un résumé de votre activité chaque semaine</p>
+          </div>
+          <input type="checkbox" name="email_weekly_summary" 
+                 <%= @settings[:notifications][:email_weekly_summary] ? 'checked' : '' %>
+                 class="h-5 w-5 rounded border-gray-300" style="color: var(--flash-purple);">
+        </div>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="flex items-center justify-between">
+      <%= link_to commercial_dashboard_path, 
+          class: "px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50" do %>
+        Annuler
+      <% end %>
+      
+      <button type="submit" 
+              class="px-6 py-2 border border-transparent text-sm font-medium rounded-md text-white hover:opacity-90"
+              style="background-color: var(--flash-purple);">
+        Enregistrer les paramètres
+      </button>
+    </div>
+  <% end %>
+</div>

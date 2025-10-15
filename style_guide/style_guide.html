@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeSales - Charte Graphique</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --dark-purple: #2B0E5D;
+            --flash-purple: #6625CC;
+            --light-orange: #FF9A65;
+            --cream-orange: #FCDFC9;
+            --noir: #110624;
+            --white: #FCF4FF;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        .bg-dark-purple { background-color: var(--dark-purple); }
+        .bg-flash-purple { background-color: var(--flash-purple); }
+        .bg-light-orange { background-color: var(--light-orange); }
+        .bg-cream-orange { background-color: var(--cream-orange); }
+        .bg-noir { background-color: var(--noir); }
+        .bg-white-custom { background-color: var(--white); }
+
+        .text-dark-purple { color: var(--dark-purple); }
+        .text-flash-purple { color: var(--flash-purple); }
+        .text-light-orange { color: var(--light-orange); }
+
+        /* Typography */
+        .headline-1 {
+            font-size: 64px;
+            font-weight: 900;
+            letter-spacing: 0;
+            line-height: 100%;
+        }
+
+        .headline-2 {
+            font-size: 42px;
+            font-weight: 700;
+            letter-spacing: -4%;
+            line-height: 70px;
+        }
+
+        .headline-3 {
+            font-size: 28px;
+            font-weight: 500;
+            letter-spacing: -3%;
+            line-height: 39px;
+        }
+
+        .subtitle {
+            font-size: 20px;
+            font-weight: 400;
+            letter-spacing: -4%;
+            line-height: 28px;
+        }
+
+        .overline {
+            font-size: 8px;
+            font-weight: 500;
+            letter-spacing: 3%;
+            line-height: 19px;
+            text-transform: uppercase;
+        }
+
+        .body-1 {
+            font-size: 14px;
+            font-weight: 400;
+            letter-spacing: -3%;
+            line-height: 19px;
+        }
+
+        .body-2 {
+            font-size: 12px;
+            font-weight: 400;
+            letter-spacing: 0;
+            line-height: 16px;
+        }
+
+        .color-swatch {
+            height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 24px;
+            border-radius: 4px;
+        }
+
+        .color-info {
+            font-size: 11px;
+            line-height: 1.4;
+        }
+
+        .white-tint {
+            height: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 16px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-200 py-6 px-8">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-dark-purple">WeSales</h1>
+            <p class="text-gray-500">Charte Graphique</p>
+        </div>
+    </header>
+
+    <div class="max-w-7xl mx-auto px-8 py-12">
+
+        <!-- Section 3.1 - Palette de couleurs -->
+        <section class="mb-16">
+            <div class="flex justify-between items-center mb-8">
+                <div>
+                    <p class="text-gray-500 text-sm mb-2">3.1</p>
+                    <h2 class="text-3xl font-bold">Palette de couleurs</h2>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-4 gap-4">
+                <!-- Dark Purple -->
+                <div class="color-swatch bg-dark-purple text-white">
+                    <div>
+                        <p class="font-medium text-xs mb-1">DARK PURPLE</p>
+                    </div>
+                    <div class="color-info">
+                        <div class="grid grid-cols-3 gap-2">
+                            <div>
+                                <p class="text-gray-300 text-xs">HEX</p>
+                                <p class="font-mono">#2B0E5D</p>
+                            </div>
+                            <div>
+                                <p class="text-gray-300 text-xs">RGB</p>
+                                <p class="font-mono">43/14/93</p>
+                            </div>
+                            <div>
+                                <p class="text-gray-300 text-xs">UTILISATION</p>
+                                <p>60%</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Flash Purple -->
+                <div class="color-swatch bg-flash-purple text-white">
+                    <div>
+                        <p class="font-medium text-xs mb-1">FLASH PURPLE</p>
+                    </div>
+                    <div class="color-info">
+                        <div class="grid grid-cols-3 gap-2">
+                            <div>
+                                <p class="text-gray-300 text-xs">HEX</p>
+                                <p class="font-mono">#6625CC</p>
+                            </div>
+                            <div>
+                                <p class="text-gray-300 text-xs">RGB</p>
+                                <p class="font-mono">102/37/204</p>
+                            </div>
+                            <div>
+                                <p class="text-gray-300 text-xs">UTILISATION</p>
+                                <p>20%</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Light Orange -->
+                <div class="color-swatch bg-light-orange text-white">
+                    <div>
+                        <p class="font-medium text-xs mb-1">LIGHT ORANGE</p>
+                    </div>
+                    <div class="color-info">
+                        <div class="grid grid-cols-3 gap-2">
+                            <div>
+                                <p class="text-gray-200 text-xs">HEX</p>
+                                <p class="font-mono">#FF9A65</p>
+                            </div>
+                            <div>
+                                <p class="text-gray-200 text-xs">RGB</p>
+                                <p class="font-mono">255/154/101</p>
+                            </div>
+                            <div>
+                                <p class="text-gray-200 text-xs">UTILISATION</p>
+                                <p>10%</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cream Orange -->
+                <div class="color-swatch bg-cream-orange text-gray-800">
+                    <div>
+                        <p class="font-medium text-xs mb-1">CREAM ORANGE</p>
+                    </div>
+                    <div class="color-info">
+                        <div class="grid grid-cols-3 gap-2">
+                            <div>
+                                <p class="text-gray-600 text-xs">HEX</p>
+                                <p class="font-mono">#FCDFC9</p>
+                            </div>
+                            <div>
+                                <p class="text-gray-600 text-xs">RGB</p>
+                                <p class="font-mono">252/223/201</p>
+                            </div>
+                            <div>
+                                <p class="text-gray-600 text-xs">UTILISATION</p>
+                                <p>10%</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3.2 - Teintes secondaires -->
+        <section class="mb-16">
+            <div class="flex justify-between items-center mb-8">
+                <div>
+                    <p class="text-gray-500 text-sm mb-2">3.2</p>
+                    <h2 class="text-3xl font-bold">Teintes secondaires</h2>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-8">
+                <!-- Noir -->
+                <div>
+                    <div class="color-swatch bg-noir text-white">
+                        <div>
+                            <p class="font-medium text-xs mb-1">NOIR</p>
+                        </div>
+                        <div class="color-info">
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <p class="text-gray-300 text-xs">HEX</p>
+                                    <p class="font-mono">#110624</p>
+                                </div>
+                                <div>
+                                    <p class="text-gray-300 text-xs">RGB</p>
+                                    <p class="font-mono">17/6/36</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Teintes de blanc -->
+                <div>
+                    <p class="text-sm font-medium mb-3">Teintes de blanc</p>
+                    <div class="grid grid-cols-3 gap-2">
+                        <div class="white-tint border-2 border-flash-purple" style="background-color: #FFF;">
+                            <div class="color-info text-gray-700">
+                                <p class="text-xs mb-1">HEX: #FFF</p>
+                                <p class="text-xs">RGB: 255/255/255 15%</p>
+                            </div>
+                        </div>
+                        <div class="white-tint border-2 border-flash-purple" style="background-color: rgba(255,255,255,0.3);">
+                            <div class="color-info text-gray-700">
+                                <p class="text-xs mb-1">HEX: #FFF</p>
+                                <p class="text-xs">RGB: 255/255/255 30%</p>
+                            </div>
+                        </div>
+                        <div class="white-tint border-2 border-flash-purple" style="background-color: rgba(255,255,255,0.6);">
+                            <div class="color-info text-gray-700">
+                                <p class="text-xs mb-1">HEX: #FFF</p>
+                                <p class="text-xs">RGB: 255/255/255 60%</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4.2 - Hiérarchie typographique -->
+        <section class="mb-16">
+            <div class="flex justify-between items-center mb-12">
+                <div>
+                    <p class="text-gray-500 text-sm mb-2">4.2</p>
+                    <h2 class="text-3xl font-bold">Hiérarchie typographique</h2>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-16">
+                <!-- Colonne gauche -->
+                <div class="space-y-12">
+                    <!-- Headline 1 -->
+                    <div>
+                        <h3 class="headline-1 mb-4">HEADLINE 1</h3>
+                        <div class="grid grid-cols-4 gap-4 text-sm text-gray-600">
+                            <div>
+                                <p class="text-xs mb-1">Weight</p>
+                                <p class="font-semibold text-black">Black</p>
+                            </div>
+                            <div>
+                                <p class="text-xs mb-1">Size</p>
+                                <p class="font-semibold text-black">64 px</p>
+                            </div>
+                            <div>
+                                <p class="text-xs mb-1">Spacing</p>
+                                <p class="font-semibold text-black">0%</p>
+                            </div>
+                            <div>
+                                <p class="text-xs mb-1">Line height</p>
+                                <p class="font-semibold text-black">100</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Headline 2 -->
+                    <div>
+                        <h3 class="headline-2 mb-4">Headline 2</h3>
+                        <div class="grid grid-cols-4 gap-4 text-sm text-gray-600">
+                            <div>
+                                <p class="text-xs mb-1">Weight</p>
+                                <p class="font-semibold text-black">Bold</p>
+                            </div>
+                            <div>
+                                <p class="text-xs mb-1">Size</p>
+                                <p class="font-semibold text-black">42 px</p>
+                            </div>
+                            <div>
+                                <p class="text-xs mb-1">Spacing</p>
+                                <p class="font-semibold text-black">-4%</p>
+                            </div>
+                            <div>
+                                <p class="text-xs mb-1">Line height</p>
+                                <p class="font-semibold text-black">70</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Headline 3 -->
+                    <div>
+                        <h3 class="headline-3 mb-4">Headline 3</h3>
+                        <div class="grid grid-cols-4 gap-4 text-sm text-gray-600">
+                            <div>
+                                <p class="text-xs mb-1">Weight</p>
+                                <p class="font-semibold text-black">Medium</p>
+                            </div>
+                            <div>
+                                <p class="text-xs mb-1">Size</p>
+                                <p class="font-semibold text-black">28 px</p>
+                            </div>
+                            <div>
+                                <p class="text-xs mb-1">Spacing</p>
+                                <p class="font-semibold text-black">-3%</p>
+                            </div>
+                            <div>
+                                <p class="text-xs mb-1">Line height</p>
+                                <p class="font-semibold text-black">39</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Colonne droite -->
+                <div class="space-y-12">
+                    <!-- Subtitle -->
+                    <div>
+                        <h4 class="subtitle mb-4">Subtitle</h4>
+                        <div class="grid grid-cols-4 gap-4 text-sm text-gray-600">
+                            <div>
+                                <p class="text-xs mb-1">Weight</p>
+                                <p class="font-semibold text-black">Regular</p>
+                            </div>
+                            <div>
+                                <p class="text-xs mb-1">Size</p>
+                                <p class="font-semibold text-black">20 px</p>
+                            </div>
+                            <div>
+                                <p class="text-xs mb-1">Spacing</p>
+                                <p class="font-semibold text-black">-4%</p>
+                            </div>
+                            <div>
+                                <p class="text-xs mb-1">Line height</p>
+                                <p class="font-semibold text-black">28</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Overline -->
+                    <div class="mt-12">
+                        <p class="overline mb-4 text-gray-600">OVERLINE</p>
+                        <div class="grid grid-cols-4 gap-4 text-sm text-gray-600">
+                            <div>
+                                <p class="text-xs mb-1">Weight</p>
+                                <p class="font-semibold text-black">Medium</p>
+                            </div>
+                            <div>
+                                <p class="text-xs mb-1">Size</p>
+                                <p class="font-semibold text-black">8 px</p>
+                            </div>
+                            <div>
+                                <p class="text-xs mb-1">Spacing</p>
+                                <p class="font-semibold text-black">3%</p>
+                            </div>
+                            <div>
+                                <p class="text-xs mb-1">Line height</p>
+                                <p class="font-semibold text-black">19</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Body 1 -->
+                    <div>
+                        <p class="body-1 mb-4">body 1</p>
+                        <div class="grid grid-cols-4 gap-4 text-sm text-gray-600">
+                            <div>
+                                <p class="text-xs mb-1">Weight</p>
+                                <p class="font-semibold text-black">Regular</p>
+                            </div>
+                            <div>
+                                <p class="text-xs mb-1">Size</p>
+                                <p class="font-semibold text-black">14 px</p>
+                            </div>
+                            <div>
+                                <p class="text-xs mb-1">Spacing</p>
+                                <p class="font-semibold text-black">-3%</p>
+                            </div>
+                            <div>
+                                <p class="text-xs mb-1">Line height</p>
+                                <p class="font-semibold text-black">19</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Body 2 -->
+                    <div>
+                        <p class="body-2 mb-4">body 2</p>
+                        <div class="grid grid-cols-4 gap-4 text-sm text-gray-600">
+                            <div>
+                                <p class="text-xs mb-1">Weight</p>
+                                <p class="font-semibold text-black">Regular</p>
+                            </div>
+                            <div>
+                                <p class="text-xs mb-1">Size</p>
+                                <p class="font-semibold text-black">12 px</p>
+                            </div>
+                            <div>
+                                <p class="text-xs mb-1">Spacing</p>
+                                <p class="font-semibold text-black">0%</p>
+                            </div>
+                            <div>
+                                <p class="text-xs mb-1">Line height</p>
+                                <p class="font-semibold text-black">16</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+</body>
+</html>
